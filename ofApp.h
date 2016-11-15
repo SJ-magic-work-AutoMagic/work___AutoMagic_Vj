@@ -161,6 +161,9 @@ private:
 	enum{
 		WIDTH = 1280,
 		HEIGHT = 720,
+		
+		WIDTH_SMALL = 640,
+		HEIGHT_SMALL = 360,
 	};
 	enum{
 		NUM_VIDEO_SERVES = 2,
