@@ -16,6 +16,7 @@ ofApp::ofApp(int _BootMode)
 , particle(PARTICLE_SET::getInstance())
 , Indicator(INDICATOR::getInstance())
 , Text(TEXT::getInstance())
+, Strobe(STROBE::getInstance())
 {
 	BootMode = BOOT_MODE(_BootMode);
 	
@@ -92,6 +93,7 @@ void ofApp::setup(){
 	particle->setup();
 	Indicator->setup();
 	Text->setup();
+	Strobe->setup();
 }
 
 /******************************
@@ -224,7 +226,7 @@ void ofApp::get_UdpMessage_From_Dj()
 			b_1stUdpMessage = false;
 			spectrum.resize(fft.size() - 1);
 			
-			printf("fft size = %d\n", spectrum.size());
+			printf("fft size = %d\n", int(spectrum.size()));
 		}
 		if(fft.size() - 1 == spectrum.size()){
 			for(int i = 0; i < spectrum.size(); i++){
@@ -309,6 +311,7 @@ void ofApp::update(){
 	particle->update(DataSet_Alpha.a_particle);
 	Indicator->update(spectrum);
 	Text->update();
+	Strobe->update();
 }
 
 /******************************
@@ -324,11 +327,12 @@ void ofApp::ContentsChange()
 	/********************
 	mov_Effect, ...は、必ずContents change.
 	********************/
-	mov0_Effect.RandomSet_EffectType();
-	mov_Effect.RandomSet_EffectType();
+	MOV_EFFECT::RandomSet_EffectType_Combination(mov_Effect, mov0_Effect);
+	
 	particle->RandomSet_GravityPosition();
 	Indicator->RandomSet_Pattern();
 	Text->RandomSet_Text();
+	Strobe->RandomSet_StrobeType();
 	
 	RandomSet_VideoMix();
 }
@@ -411,7 +415,7 @@ void ofApp::draw(){
 		fbo[i].begin();
 		ofBackground(0, 0, 0, 0);
 		ofSetColor(255, 255, 255, 255);
-		ofEnableAlphaBlending();
+		ofDisableAlphaBlending();
 		
 		// video_client[id_VideoServer][i].draw(0, 0, fbo[i].getWidth(), fbo[i].getHeight());
 		video_client[id_VideoServer][i].draw(0, 0); // w, h を指定すると、videoが来ていない時の画面が何故か白くなった. 黒くするためにこちらのcodeを採用.
@@ -442,6 +446,8 @@ void ofApp::draw(){
 		Text->draw();
 	}
 	
+	Strobe->draw(DataSet_Alpha.a_Strobe);
+	
 	/********************
 	********************/
 	if(b_DispGui) gui.draw();
@@ -458,6 +464,14 @@ void ofApp::draw(){
 
 /******************************
 ******************************/
+bool ofApp::IsMov_Gray()
+{
+	if((DataSet_Alpha.b_GeneratedImage_on) && (MOV_EFFECT::IsGray()))	return true;
+	else																return false;
+}
+
+/******************************
+******************************/
 int ofApp::draw_MixVideo()
 {
 	fbo_VideoMix.begin();
@@ -465,12 +479,12 @@ int ofApp::draw_MixVideo()
 	
 	ofBackground(0, 0, 0);
 	ofSetColor(255, 255, 255, 255);
-	ofEnableAlphaBlending();
+	ofDisableAlphaBlending();
 	
 	shader_VideoMix.setUniform1f( "mov_a", DataSet_Alpha.mov_a );
 	shader_VideoMix.setUniform1f( "mov_a_0_12", DataSet_Alpha.mov_a_0_12 );
 	shader_VideoMix.setUniform1f( "mov_a_1_2", DataSet_Alpha.mov_a_1_2 );
-	shader_VideoMix.setUniform1f( "b_GeneratedImage_on", DataSet_Alpha.b_GeneratedImage_on );
+	shader_VideoMix.setUniform1f( "b_Gray", IsMov_Gray() );
 	shader_VideoMix.setUniform1f( "b_Mix_mov12_add", gui__b_Mix_mov12_add );
 	
 	shader_VideoMix.setUniformTexture( "texture1", fbo[1].getTextureReference(), 1 ); 
@@ -584,9 +598,11 @@ void ofApp::keyPressed(int key){
 		InputState = INPUT_NORMAL;
 		
 	}else if(InputState == INPUT_TEXT){
+		Text->keyPressed(key);
 		InputState = INPUT_NORMAL;
 		
 	}else if(InputState == INPUT_STROBE){
+		Strobe->keyPressed(key);
 		InputState = INPUT_NORMAL;
 		
 	}else if(InputState == INPUT_MOV_EFFECT){

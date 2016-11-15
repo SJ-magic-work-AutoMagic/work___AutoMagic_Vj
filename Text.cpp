@@ -5,8 +5,6 @@
 /************************************************************
 ************************************************************/
 const int FontSize[] = {
-	10,
-	20,
 	30,
 	40,
 	50,
@@ -15,13 +13,24 @@ const int FontSize[] = {
 	80,
 	90,
 	100,
+	110,
+	120,
 };
 const int NUM_FONT_SIZE = sizeof(FontSize) / sizeof(FontSize[0]);
 
 const string Contents[] = {
-	"SAIJO",
-	"NOBUHIRO",
-	"TIESTO",
+	"SJ.MAGIC",
+	
+	"by YOURSELF",
+	"Up to U",
+	"Never too late",
+	"Nobody's Perfect",
+	"Wish me luck",
+	"Be quick Don't hurry",
+	"Problem is Chance",
+	"no FUTURE in PAST",
+	"find a REMEDY",
+	"No Limit",
 };
 const int NUM_CONTENTS = sizeof(Contents) / sizeof(Contents[0]);
 
@@ -32,7 +41,7 @@ const int NUM_CONTENTS = sizeof(Contents) / sizeof(Contents[0]);
 ******************************/
 TEXT::TEXT()
 : RefreshTime_sec(0.060)
-,  id(0)
+, id(0)
 {
 }
 
@@ -76,6 +85,16 @@ void TEXT::draw()
 {
 	/********************
 	********************/
+	// ofBackground(0, 0, 0, 0);
+	
+	/********************
+	********************/
+	ofEnableAlphaBlending();
+	ofEnableBlendMode(OF_BLENDMODE_ADD);
+	// ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+	
+	/********************
+	********************/
 	if(b_Refresh){
 		int DispInTime = rand() % MAX_DISP_IN_TIME;
 		DrawInfo.resize(DispInTime);
@@ -86,9 +105,10 @@ void TEXT::draw()
 		}
 	}
 	
-	ofSetColor(255, 255, 255, 150);
+	ofSetColor(255, 255, 255, 170);
 	for(int i = 0; i < DrawInfo.size(); i++){
-		font[DrawInfo[i].FontSize_id].drawString(Contents[id], DrawInfo[i].pos.x, DrawInfo[i].pos.y);
+		float offset = font[DrawInfo[i].FontSize_id].stringWidth(Contents[id]) / 2;
+		font[DrawInfo[i].FontSize_id].drawString(Contents[id], DrawInfo[i].pos.x - offset, DrawInfo[i].pos.y);
 	}
 }
 

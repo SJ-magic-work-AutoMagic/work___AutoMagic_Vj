@@ -15,6 +15,7 @@
 #include "particle.h"
 #include "Indicator.h"
 #include "Text.h"
+#include "Strobe.h"
 
 /************************************************************
 ************************************************************/
@@ -199,6 +200,7 @@ private:
 	PARTICLE_SET* particle;
 	INDICATOR* Indicator;
 	TEXT* Text;
+	STROBE* Strobe;
 	
 	/********************
 	********************/
@@ -248,6 +250,7 @@ private:
 	void ApplyUdp_ToGui_for_Monitoring();
 	
 	void RandomSet_VideoMix();
+	bool IsMov_Gray();
 	
 public:
 	/****************************************
