@@ -391,8 +391,22 @@ void INDICATOR::LoadXmlParameter()
 ******************************/
 void INDICATOR::draw(double Dj_a)
 {
-	// ofBackground( Background );
+	/********************
+	********************/
+	// ofBackground(0, 0, 0, 0);
 	
+	/********************
+	********************/
+	ofEnableAlphaBlending();
+	ofEnableBlendMode(OF_BLENDMODE_ADD);
+	// ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+	
+	/********************
+	********************/
+	ofSetColor(255, 255, 255, 255);
+	
+	/********************
+	********************/
 	ofPushMatrix();
 	ofTranslate( ofGetWidth() / 2, ofGetHeight() / 2 );
 	float Scl = pow( g_Scale, 4.0f );
