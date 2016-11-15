@@ -265,10 +265,9 @@ void MOV_EFFECT::draw_Particle(ofFbo* fbo_src, ofFbo* fbo_dst)
 	
 	cam.begin();
 	ofPushMatrix();
-	// ofScale(1, -1, 1);
+	ofScale(1, -1, 1);
 	glPointSize(1.0);
 	Vbo.draw(GL_POINTS, 0, NUM_PARTICLES);
-	// fbo_dst_local.draw(0, 0 );
 	ofPopMatrix();
 	cam.end();
 	
@@ -522,6 +521,7 @@ void MOV_EFFECT::keyPressed(int key)
 		case '5':
 		case '6':
 		case '7':
+		case '8':
 		{
 			Set_EffectType(key - '0');
 		}

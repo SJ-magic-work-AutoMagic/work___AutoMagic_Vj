@@ -587,6 +587,10 @@ void ofApp::keyPressed(int key){
 				image.saveImage("screen.png");
 			}
 				break;
+				
+			case '-':
+				ofSetWindowShape( WIDTH_SMALL, HEIGHT_SMALL );
+				break;
 		}
 		
 	}else if(InputState == INPUT_PARTICLE){
