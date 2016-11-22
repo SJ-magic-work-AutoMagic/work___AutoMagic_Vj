@@ -1,4 +1,19 @@
 /************************************************************
+description
+
+
+in order to add Effect.
+	touch
+		movEffect_weight.xlsx.
+		void MOV_EFFECT::Set_EffectType(int id)
+		
+	no need to touch
+		mov, mov_0
+			Automatically set from "EffectCombination".
+			
+			
+GLSL expression samples
+			http://clemz.io/article-retro-shaders-webgl.html
 ************************************************************/
 #pragma once
 
@@ -6,6 +21,8 @@
 ************************************************************/
 #include "ofMain.h"
 #include "sjCommon.h"
+
+#include "movEffect_SphereMapping.h"
 
 /************************************************************
 ************************************************************/
@@ -17,6 +34,7 @@ private:
 	/****************************************
 	****************************************/
 	enum EFFECT_TYPE{
+		EFFECT_TYPE__SPHERE_MAPPING,
 		EFFECT_TYPE__KALEIDOSCOPE,
 		
 		EFFECT_TYPE__SPHERE_TEXTURE,
@@ -29,6 +47,8 @@ private:
 		EFFECT_TYPE__SPLIT_5x5,
 		
 		EFFECT_TYPE__PARTICLE,
+		EFFECT_TYPE__MOSAIC,
+		EFFECT_TYPE__NOISE,
 		
 		NUM_EFFECT_TYPE,
 	};
@@ -49,6 +69,8 @@ private:
 	********************/
 	ofShader shader_Kaleido;
 	ofShader shader_Split;
+	ofShader shader_Mosaic;
+	ofShader shader_Noise;
 	
 	/********************
 	********************/
@@ -75,14 +97,19 @@ private:
 	ofVec3f Verts[NUM_PARTICLES];
 	ofFloatColor Color[NUM_PARTICLES];
 	
+	/********************
+	********************/
+	MOV_EFFECT__SPHERE_MAPPING SphereMapping;
 	
 	/****************************************
 	****************************************/
 	void draw_EffectNone(ofFbo* fbo_src, ofFbo* fbo_dst);
 	void draw_Kaleido(ofFbo* fbo_src, ofFbo* fbo_dst);
 	void draw_PrimitiveTexture(ofFbo* fbo_src, ofFbo* fbo_dst, EFFECT_TYPE EffectType);
-	void draw_Split(ofFbo* fbo_src, ofFbo* fbo_dst, int NumSplit, bool b_InsertNoise);
+	void draw_Split(ofFbo* fbo_src, ofFbo* fbo_dst, int NumSplit);
 	void draw_Particle(ofFbo* fbo_src, ofFbo* fbo_dst);
+	void draw_Mosaic(ofFbo* fbo_src, ofFbo* fbo_dst);
+	void draw_Noise(ofFbo* fbo_src, ofFbo* fbo_dst);
 	
 	void Set_EffectType(int id);
 	void cam_orbit_motion();

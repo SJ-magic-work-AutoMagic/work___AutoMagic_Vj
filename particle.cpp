@@ -384,6 +384,8 @@ void PARTICLE_SET::update(double Dj_a)
 ******************************/
 void PARTICLE_SET::draw()
 {
+	ofPushStyle();
+	
 	/********************
 	********************/
 	// ofBackground(0, 0, 0, 0);
@@ -426,6 +428,8 @@ void PARTICLE_SET::draw()
 	ofDrawBitmapString("fps = " + ofToString(ofGetFrameRate()), 10, 20);
 	ofDrawBitmapString("Particle num = " + ofToString(particles.size()), 10, 40);
 	*/
+	
+	ofPopStyle();
 }
 
 /******************************

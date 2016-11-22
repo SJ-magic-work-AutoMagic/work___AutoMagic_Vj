@@ -391,6 +391,8 @@ void INDICATOR::LoadXmlParameter()
 ******************************/
 void INDICATOR::draw(double Dj_a)
 {
+	ofPushStyle();
+	
 	/********************
 	********************/
 	// ofBackground(0, 0, 0, 0);
@@ -419,6 +421,8 @@ void INDICATOR::draw(double Dj_a)
 	
 	
 	if ( showGui ) gui.draw();
+	
+	ofPopStyle();
 }
 
 /******************************
