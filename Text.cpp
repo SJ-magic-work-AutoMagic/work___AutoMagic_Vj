@@ -57,7 +57,8 @@ void TEXT::setup()
 {
 	font.resize(NUM_FONT_SIZE);
 	for(int i = 0; i < NUM_FONT_SIZE; i++){
-		font[i].loadFont("RictyDiminished-Regular.ttf", FontSize[i]);
+		// font[i].loadFont("RictyDiminished-Regular.ttf", FontSize[i]);
+		font[i].loadFont("FTY DELIRIUM NCV.ttf", FontSize[i]);
 	}
 }
 
@@ -83,6 +84,8 @@ void TEXT::update()
 ******************************/
 void TEXT::draw()
 {
+	ofPushStyle();
+	
 	/********************
 	********************/
 	// ofBackground(0, 0, 0, 0);
@@ -96,7 +99,7 @@ void TEXT::draw()
 	/********************
 	********************/
 	if(b_Refresh){
-		int DispInTime = rand() % MAX_DISP_IN_TIME;
+		int DispInTime = int(ofRandom(MIN_DISP_IN_TIME, MAX_DISP_IN_TIME));
 		DrawInfo.resize(DispInTime);
 		
 		for(int i = 0; i < DrawInfo.size(); i++){
@@ -110,6 +113,8 @@ void TEXT::draw()
 		float offset = font[DrawInfo[i].FontSize_id].stringWidth(Contents[id]) / 2;
 		font[DrawInfo[i].FontSize_id].drawString(Contents[id], DrawInfo[i].pos.x - offset, DrawInfo[i].pos.y);
 	}
+	
+	ofPopStyle();
 }
 
 /******************************
@@ -117,6 +122,8 @@ void TEXT::draw()
 void TEXT::RandomSet_Text()
 {
 	id = rand() % NUM_CONTENTS;
+	
+	printf("Text = %s\n", Contents[id].c_str());
 }
 
 /******************************

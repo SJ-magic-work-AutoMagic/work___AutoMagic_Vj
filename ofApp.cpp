@@ -83,8 +83,8 @@ void ofApp::setup(){
 	for(int i = 0; i < NUM_VIDEOS_PER_SERVER; i++){
 		fbo[i].allocate( ofGetWidth(), ofGetHeight() , GL_RGBA);
 	}
-	fbo_Effect_0.allocate( ofGetWidth(), ofGetHeight() );
-	fbo_VideoMix.allocate( ofGetWidth(), ofGetHeight() );
+	fbo_Effect_0.allocate( ofGetWidth(), ofGetHeight(), GL_RGBA);
+	fbo_VideoMix.allocate( ofGetWidth(), ofGetHeight(), GL_RGBA);
 	
 	/********************
 	********************/
@@ -349,7 +349,7 @@ void ofApp::RandomSet_VideoMix()
 		
 		NUM_MIXTYPE,
 	};
-	int weight[NUM_MIXTYPE] = {3, 1};
+	int weight[NUM_MIXTYPE] = {1, 1};
 	int mixType = Dice_index(weight, NUM_MIXTYPE);
 	
 	gui__b_Mix_mov12_add = bool(mixType);
@@ -404,10 +404,9 @@ int ofApp::get_NextVideoServerId(int id)
 void ofApp::draw(){
 	/********************
 	********************/
-	ofBackground(0, 0, 0);
+	ofBackground(0, 0, 0, 0);
 	ofSetColor(255, 255, 255, 255);
-	ofEnableAlphaBlending();
-	
+
 	/********************
 	video serverからfbo[]に3面分のvideo画面を取ってくる。
 	********************/
@@ -463,10 +462,19 @@ void ofApp::draw(){
 }
 
 /******************************
+description
+	細かく言うと、
+		DataSet_Alpha
+			b_mov_Effect_On
+			b_mov0_Effect_On
+			a_indicator
+			a_particle
+	も含めて設定する所だが、color movieにGenerate Imageが乗るケースも普通に面白いので、
+	あえて、緩めの条件にしておく。
 ******************************/
 bool ofApp::IsMov_Gray()
 {
-	if((DataSet_Alpha.b_GeneratedImage_on) && (MOV_EFFECT::IsGray()))	return true;
+	if( (DataSet_Alpha.b_GeneratedImage_on) && (MOV_EFFECT::IsGray()) )	return true;
 	else																return false;
 }
 
