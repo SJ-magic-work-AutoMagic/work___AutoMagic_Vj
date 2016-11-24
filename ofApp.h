@@ -162,8 +162,8 @@ private:
 		WIDTH = 1280,
 		HEIGHT = 720,
 		
-		WIDTH_SMALL = 640,
-		HEIGHT_SMALL = 360,
+		WIDTH_SMALL = 960,
+		HEIGHT_SMALL = 540,
 	};
 	enum{
 		NUM_VIDEO_SERVES = 2,
@@ -235,6 +235,12 @@ private:
 	
 	bool b_fullScreen;
 	bool b_DispFrameRate;
+
+	/********************
+	********************/
+#ifdef SJ_REC
+	float t_1st_OscMessage_ColorTheme;
+#endif	
 	
 	
 	/****************************************

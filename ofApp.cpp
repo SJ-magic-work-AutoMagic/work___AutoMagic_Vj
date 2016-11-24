@@ -17,6 +17,10 @@ ofApp::ofApp(int _BootMode)
 , Indicator(INDICATOR::getInstance())
 , Text(TEXT::getInstance())
 , Strobe(STROBE::getInstance())
+
+#ifdef SJ_REC
+, t_1st_OscMessage_ColorTheme(-1)
+#endif
 {
 	BootMode = BOOT_MODE(_BootMode);
 	
@@ -181,6 +185,12 @@ void ofApp::Res_OscFrom_Dj()
 			
 			ColorChange(COLORPATTERNS(ColorThemeID));
 			
+#ifdef SJ_REC
+		if(t_1st_OscMessage_ColorTheme == -1){
+			t_1st_OscMessage_ColorTheme = ofGetElapsedTimef();
+		}
+#endif
+			
 		}else if(m_receive.getAddress() == "/VJ_BpmInfo"){
 			int BeatInterval_ms = m_receive.getArgAsInt32(0);
 			// do nothing now.
@@ -214,10 +224,9 @@ void ofApp::get_UdpMessage_From_Dj()
 			DataSet_Alpha.b_GeneratedImage_on	= atoi(alphas[7].c_str());
 			DataSet_Alpha.b_text_on				= atoi(alphas[8].c_str());
 			DataSet_Alpha.a_Strobe				= atof(alphas[9].c_str());
+			
+			ApplyUdp_ToGui_for_Monitoring();
 		}
-		
-		ApplyUdp_ToGui_for_Monitoring();
-		
 		
 		/********************
 		********************/
@@ -458,6 +467,20 @@ void ofApp::draw(){
 		sprintf(buf, "FrameRate = %5.1f", ofGetFrameRate());
 		ofDrawBitmapString(buf, 10, 10);
 	}
+	
+	/********************
+	********************/
+#ifdef SJ_REC
+	if(0 <= t_1st_OscMessage_ColorTheme){
+		float dt = ofGetElapsedTimef() - t_1st_OscMessage_ColorTheme;
+		if(dt < 5.0){
+			char TimeFrom_1stMessage[BUF_SIZE];
+			sprintf(TimeFrom_1stMessage, "%7.2f", dt);
+			
+			ofDrawBitmapString(TimeFrom_1stMessage, 10, 20);
+		}
+	}
+#endif	
 	
 }
 
