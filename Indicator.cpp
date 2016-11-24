@@ -378,6 +378,7 @@ void INDICATOR::LoadXmlParameter()
 	gui.loadFromFile(FileName);
 	
 	/********************
+	RGBはkeepするが、Alphaは模様によって最適に設定された値がxmlに格納されているので、これを使う。
 	********************/
 	ofColor xml_color = color;
 	keep_color.a = xml_color.a;
