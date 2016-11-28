@@ -34,13 +34,16 @@ private:
 	/****************************************
 	****************************************/
 	enum EFFECT_TYPE{
-		EFFECT_TYPE__SPHERE_MAPPING,
 		EFFECT_TYPE__KALEIDOSCOPE,
 		
 		EFFECT_TYPE__SPHERE_TEXTURE,
 		EFFECT_TYPE__BOX_TEXTURE,
 		EFFECT_TYPE__CYLINDER_TEXTURE,
 		EFFECT_TYPE__CONE_TEXTURE,
+		
+		EFFECT_TYPE__BOXES_MATRIX_TEXTURE,
+		EFFECT_TYPE__SPHERES_MATRIX_TEXTURE,
+		EFFECT_TYPE__CYLINDERS_MATRIX_TEXTURE,
 		
 		EFFECT_TYPE__SPLIT_2x2,
 		EFFECT_TYPE__SPLIT_3x3,
@@ -49,6 +52,10 @@ private:
 		EFFECT_TYPE__PARTICLE,
 		EFFECT_TYPE__MOSAIC,
 		EFFECT_TYPE__NOISE,
+		EFFECT_TYPE__SPHERE_MAPPING,
+		
+		EFFECT_TYPE__MIRROR_LR,
+		EFFECT_TYPE__MIRROR_VERT,
 		
 		NUM_EFFECT_TYPE,
 	};
@@ -71,6 +78,8 @@ private:
 	ofShader shader_Split;
 	ofShader shader_Mosaic;
 	ofShader shader_Noise;
+	ofShader shader_Mirror_LR;
+	ofShader shader_Mirror_Vert;
 	
 	/********************
 	********************/
@@ -110,9 +119,15 @@ private:
 	void draw_Particle(ofFbo* fbo_src, ofFbo* fbo_dst);
 	void draw_Mosaic(ofFbo* fbo_src, ofFbo* fbo_dst);
 	void draw_Noise(ofFbo* fbo_src, ofFbo* fbo_dst);
+	void draw_Mirror_LR(ofFbo* fbo_src, ofFbo* fbo_dst);
+	void draw_Mirror_Vert(ofFbo* fbo_src, ofFbo* fbo_dst);
 	
 	void Set_EffectType(int id);
 	void cam_orbit_motion();
+	
+	void draw_BoxMatrix();
+	void draw_SphereMatrix();
+	void draw_CylinderMatrix();
 	
 public:
 	/****************************************
