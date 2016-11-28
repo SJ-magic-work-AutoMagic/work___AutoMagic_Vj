@@ -21,7 +21,15 @@ const int NUM_FONT_SIZE = sizeof(FontSize) / sizeof(FontSize[0]);
 const string Contents[] = {
 	"SJ.MAGIC",
 	
+	"TECHNOLOGY",
+	"FEEL",
+	"Peace",
+	"CURIOSITY",
+	"Trust No-One",
 	"by YOURSELF",
+	"Stop The World",
+	"EXTREME",
+	"GUILTY",
 	"Up to U",
 	"Never too late",
 	"Nobody's Perfect",
@@ -59,6 +67,8 @@ void TEXT::setup()
 	for(int i = 0; i < NUM_FONT_SIZE; i++){
 		// font[i].loadFont("RictyDiminished-Regular.ttf", FontSize[i]);
 		font[i].loadFont("FTY DELIRIUM NCV.ttf", FontSize[i]);
+		// font[i].loadFont("Glamor-Bold.ttf", FontSize[i]);
+		
 	}
 }
 

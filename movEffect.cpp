@@ -16,20 +16,25 @@ struct WEIGHT_GRAY{
 };
 
 WEIGHT_GRAY EffectCombination[MOV_EFFECT::NUM_EFFECT_TYPE_COMBINATION] = {
-//			→ mov											
-//	↓ mov 0		EFFECT_TYPE__KALEIDOSCOPE	EFFECT_TYPE__SPHERE_TEXTURE	EFFECT_TYPE__BOX_TEXTURE	EFFECT_TYPE__CYLINDER_TEXTURE	EFFECT_TYPE__CONE_TEXTURE	EFFECT_TYPE__SPLIT_2x2	EFFECT_TYPE__SPLIT_3x3	EFFECT_TYPE__SPLIT_5x5	EFFECT_TYPE__PARTICLE	EFFECT_TYPE__MOSAIC	EFFECT_TYPE__NOISE	EFFECT_TYPE__SPHERE_MAPPING
-/*	EFFECT_TYPE__KALEIDOSCOPE	*/	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1,false},	{1, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__SPHERE_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__BOX_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__CYLINDER_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__CONE_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__SPLIT_2x2	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1, true},	{1, true},	{1, true},	{1,false},	{1, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__SPLIT_3x3	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1, true},	{1, true},	{1,false},	{1, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__SPLIT_5x5	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1, true},	{1,false},	{1, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__PARTICLE	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},	{0, true},	{1,false},	{1,false},
-/*	EFFECT_TYPE__MOSAIC	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__NOISE	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},	{1, true},
-/*	EFFECT_TYPE__SPHERE_MAPPING	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},
+//			→ mov																
+//	↓ mov 0		KALEIDOSCOPE	SPHERE_TEXTURE	BOX_TEXTURE	CYLINDER_TEXTURE	CONE_TEXTURE	BOXES_MATRIX_TEXTURE	SPHERES_MATRIX_TEXTURE	CYLINDERS_MATRIX_TEXTURE	SPLIT_2x2	SPLIT_3x3	SPLIT_5x5	PARTICLE	MOSAIC	NOISE	SPHERE_MAPPING	MIRROR_LR	MIRROR_VERT
+/*	EFFECT_TYPE__KALEIDOSCOPE	*/	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1,false},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__SPHERE_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__BOX_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__CYLINDER_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__CONE_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__BOXES_MATRIX_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__SPHERES_MATRIX_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__CYLINDERS_MATRIX_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__SPLIT_2x2	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1, true},	{1, true},	{1, true},	{1,false},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__SPLIT_3x3	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1, true},	{1, true},	{1,false},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__SPLIT_5x5	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1, true},	{1,false},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__PARTICLE	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},	{0, true},	{1,false},	{1,false},	{1,false},	{1,false},
+/*	EFFECT_TYPE__MOSAIC	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__NOISE	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__SPHERE_MAPPING	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__MIRROR_LR	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},	{1, true},
+/*	EFFECT_TYPE__MIRROR_VERT	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},
 };
 
 /************************************************************
@@ -95,6 +100,9 @@ void MOV_EFFECT::Set_EffectType(int id)
 		case EFFECT_TYPE__CYLINDER_TEXTURE:
 		case EFFECT_TYPE__CONE_TEXTURE:
 		case EFFECT_TYPE__PARTICLE:
+		case EFFECT_TYPE__BOXES_MATRIX_TEXTURE:
+		case EFFECT_TYPE__SPHERES_MATRIX_TEXTURE:
+		case EFFECT_TYPE__CYLINDERS_MATRIX_TEXTURE:
 			b_cam_orbit = true;
 			break;
 			
@@ -116,7 +124,9 @@ void MOV_EFFECT::setup()
 	shader_Split.load( "movEffect/Split/Split.vert", "movEffect/Split/Split.frag");
 	shader_Mosaic.load( "movEffect/mosaic/Mosaic.vert", "movEffect/mosaic/Mosaic.frag");
 	shader_Noise.load( "movEffect/Noise/Noise.vert", "movEffect/Noise/Noise.frag");
-	
+	shader_Mirror_LR.load( "movEffect/Mirror_LR/Mirror_LR.vert", "movEffect/Mirror_LR/Mirror_LR.frag");
+	shader_Mirror_Vert.load( "movEffect/Mirror_Vertical/Mirror_Vertical.vert", "movEffect/Mirror_Vertical/Mirror_Vertical.frag");
+
 	/********************
 	********************/
     sphere.set(250, 80);
@@ -152,10 +162,40 @@ void MOV_EFFECT::setup()
 ******************************/
 void MOV_EFFECT::update()
 {
-    sphere.set(ofGetWidth() * 0.17, 80);
-	Box.set(ofGetWidth() * 0.18);
-	cylinder.set(ofGetWidth() * 0.14, ofGetWidth() * 0.25);
-	cone.set(ofGetWidth() * 0.15, ofGetWidth() * 0.25, 60, 60);
+	/********************
+	********************/
+	switch(EffectType){
+		case EFFECT_TYPE__SPHERE_TEXTURE:
+			sphere.set(ofGetWidth() * 0.17, 80);
+			break;
+			
+		case EFFECT_TYPE__SPHERES_MATRIX_TEXTURE:
+			sphere.set(ofGetWidth() * 0.06, 80);
+			break;
+			
+		case EFFECT_TYPE__BOX_TEXTURE:
+			Box.set(ofGetWidth() * 0.18);
+			break;
+			
+		case EFFECT_TYPE__BOXES_MATRIX_TEXTURE:
+			Box.set(ofGetWidth() * 0.15);
+			break;
+			
+		case EFFECT_TYPE__CYLINDER_TEXTURE:
+			cylinder.set(ofGetWidth() * 0.14, ofGetWidth() * 0.25);
+			break;
+			
+		case EFFECT_TYPE__CYLINDERS_MATRIX_TEXTURE:
+		{
+			float sizeDown = 0.4;
+			cylinder.set(ofGetWidth() * 0.14 * sizeDown, ofGetWidth() * 0.25 * sizeDown);
+		}
+			break;
+			
+		case EFFECT_TYPE__CONE_TEXTURE:
+			cone.set(ofGetWidth() * 0.15, ofGetWidth() * 0.25, 60, 60);
+			break;
+	}
 	
 	/********************
 	********************/
@@ -182,6 +222,9 @@ void MOV_EFFECT::draw(bool b_EffectOn, ofFbo* fbo_src, ofFbo* fbo_dst)
 			case EFFECT_TYPE__BOX_TEXTURE:
 			case EFFECT_TYPE__CYLINDER_TEXTURE:
 			case EFFECT_TYPE__CONE_TEXTURE:
+			case EFFECT_TYPE__BOXES_MATRIX_TEXTURE:
+			case EFFECT_TYPE__SPHERES_MATRIX_TEXTURE:
+			case EFFECT_TYPE__CYLINDERS_MATRIX_TEXTURE:
 				draw_PrimitiveTexture(fbo_src, fbo_dst, EffectType);
 				break;
 				
@@ -213,6 +256,14 @@ void MOV_EFFECT::draw(bool b_EffectOn, ofFbo* fbo_src, ofFbo* fbo_dst)
 				SphereMapping.draw(fbo_src, fbo_dst);
 				break;
 				
+			case EFFECT_TYPE__MIRROR_LR:
+				draw_Mirror_LR(fbo_src, fbo_dst);
+				break;
+				
+			case EFFECT_TYPE__MIRROR_VERT:
+				draw_Mirror_Vert(fbo_src, fbo_dst);
+				break;
+				
 			default:
 				draw_EffectNone(fbo_src, fbo_dst);
 				break;
@@ -223,6 +274,94 @@ void MOV_EFFECT::draw(bool b_EffectOn, ofFbo* fbo_src, ofFbo* fbo_dst)
 	}
 	
 	ofPopStyle();
+}
+
+/******************************
+******************************/
+void MOV_EFFECT::draw_Mirror_Vert(ofFbo* fbo_src, ofFbo* fbo_dst)
+{
+	/********************
+	draw to local fbo that has same size of fbo_src.
+	********************/
+	ofFbo fbo_dst_local;
+	fbo_dst_local.allocate(fbo_src->getWidth(), fbo_src->getHeight(), GL_RGB);
+	
+	fbo_dst_local.begin();
+	shader_Mirror_Vert.begin();
+	
+		ofBackground(0, 0, 0, 0);
+		ofSetColor(255, 255, 255, 255);
+		ofDisableAlphaBlending();
+		
+		shader_Mirror_Vert.setUniform2f( "screenCenter", fbo_dst_local.getWidth()/2, fbo_dst_local.getHeight()/2 );
+		
+		fbo_src->draw(0, 0, fbo_dst_local.getWidth(), fbo_dst_local.getHeight());
+	
+	shader_Mirror_Vert.end();
+	fbo_dst_local.end();
+	
+	/********************
+	copy(stretch if needed).
+	********************/
+	if(fbo_dst){
+		fbo_dst->begin();
+		
+		ofBackground(0, 0, 0, 0);
+		ofSetColor(255, 255, 255, 255);
+		ofDisableAlphaBlending();
+		
+		fbo_dst_local.draw(0, 0, fbo_dst->getWidth(), fbo_dst->getHeight());
+		fbo_dst->end();
+		
+	}else{
+		ofSetColor(255, 255, 255, 255);
+		ofEnableAlphaBlending();
+		fbo_dst_local.draw(0, 0, ofGetWidth(), ofGetHeight());
+	}
+}
+
+/******************************
+******************************/
+void MOV_EFFECT::draw_Mirror_LR(ofFbo* fbo_src, ofFbo* fbo_dst)
+{
+	/********************
+	draw to local fbo that has same size of fbo_src.
+	********************/
+	ofFbo fbo_dst_local;
+	fbo_dst_local.allocate(fbo_src->getWidth(), fbo_src->getHeight(), GL_RGB);
+	
+	fbo_dst_local.begin();
+	shader_Mirror_LR.begin();
+	
+		ofBackground(0, 0, 0, 0);
+		ofSetColor(255, 255, 255, 255);
+		ofDisableAlphaBlending();
+		
+		shader_Mirror_LR.setUniform2f( "screenCenter", fbo_dst_local.getWidth()/2, fbo_dst_local.getHeight()/2 );
+		
+		fbo_src->draw(0, 0, fbo_dst_local.getWidth(), fbo_dst_local.getHeight());
+	
+	shader_Mirror_LR.end();
+	fbo_dst_local.end();
+	
+	/********************
+	copy(stretch if needed).
+	********************/
+	if(fbo_dst){
+		fbo_dst->begin();
+		
+		ofBackground(0, 0, 0, 0);
+		ofSetColor(255, 255, 255, 255);
+		ofDisableAlphaBlending();
+		
+		fbo_dst_local.draw(0, 0, fbo_dst->getWidth(), fbo_dst->getHeight());
+		fbo_dst->end();
+		
+	}else{
+		ofSetColor(255, 255, 255, 255);
+		ofEnableAlphaBlending();
+		fbo_dst_local.draw(0, 0, ofGetWidth(), ofGetHeight());
+	}
 }
 
 /******************************
@@ -403,75 +542,6 @@ void MOV_EFFECT::draw_Particle(ofFbo* fbo_src, ofFbo* fbo_dst)
 	}
 }
 
-#if 0
-void MOV_EFFECT::draw_Particle(ofFbo* fbo_src, ofFbo* fbo_dst)
-{
-	/********************
-	draw to local fbo that has same size of fbo_src.
-	********************/
-	ofFbo fbo_dst_local;
-	fbo_dst_local.allocate(PARTICLE_WIDTH, PARTICLE_HEIGHT, GL_RGB);
-	
-	fbo_dst_local.begin();
-		ofBackground(0, 0, 0, 0);
-		ofSetColor(255, 255, 255, 255);
-		ofDisableAlphaBlending();
-		
-		fbo_src->draw(0, 0, fbo_dst_local.getWidth(), fbo_dst_local.getHeight());
-	
-	fbo_dst_local.end();
-	
-	/********************
-	********************/
-	/* */
-	if(fbo_dst){
-		fbo_dst->begin();
-		
-		ofBackground(0, 0, 0, 0);
-		ofSetColor(255, 255, 255, 255);
-	}
-	ofEnableAlphaBlending();
-	ofEnableBlendMode(OF_BLENDMODE_ADD);
-	
-	
-	/* */
-	ofFloatPixels pixels;
-	fbo_dst_local.readToPixels(pixels);
-	
-	for(int x = 0; x < pixels.getWidth(); x++){
-		for(int y = 0; y < pixels.getHeight(); y++){
-			ofColor color = pixels.getColor(x, y);
-			
-			float r = float(color.r) / 255;
-			float g = float(color.g) / 255;
-			float b = float(color.b) / 255;
-			
-			float brightness = (r + g + b) / 3.0f;
-			
-			Verts[y * PARTICLE_WIDTH + x] = ofVec3f(x - PARTICLE_WIDTH/2, y - PARTICLE_HEIGHT/2, brightness * 255 - 128);
-			Color[y * PARTICLE_WIDTH + x] = ofFloatColor(r, g, b, 0.8);
-		}
-	}
-	
-	Vbo.updateVertexData(Verts, NUM_PARTICLES);
-	Vbo.updateColorData(Color, NUM_PARTICLES);
-	
-	/* */
-	cam_orbit_motion();
-	
-	cam.begin();
-	ofPushMatrix();
-	ofScale(1, -1, 1);
-	glPointSize(1.5);
-	Vbo.draw(GL_POINTS, 0, NUM_PARTICLES);
-	ofPopMatrix();
-	cam.end();
-	
-	/* */
-	if(fbo_dst) fbo_dst->end();
-}
-#endif
-
 /******************************
 ******************************/
 void MOV_EFFECT::draw_Split(ofFbo* fbo_src, ofFbo* fbo_dst, int NumSplit)
@@ -524,7 +594,7 @@ void MOV_EFFECT::cam_orbit_motion()
 	if(b_cam_orbit){
 		float time = ofGetElapsedTimef();
 		float longitude = 15 * time; // rotation speed
-		float latitude = ofGetWidth() * 0.015 * sin(time*0.8); // y方向に軽く揺らす.
+		float latitude = ofGetWidth() * 0.013 * sin(time*0.8); // y方向に軽く揺らす.
 		float radius = ofGetWidth() * 0.4 + ofGetWidth() * 0.04 * sin(time*0.4);
 		cam.orbit( longitude, latitude, radius, ofPoint(0,0,0) );
 	}
@@ -542,21 +612,21 @@ void MOV_EFFECT::draw_PrimitiveTexture(ofFbo* fbo_src, ofFbo* fbo_dst, EFFECT_TY
 	
 	switch(EffectType){
 		case EFFECT_TYPE__SPHERE_TEXTURE:
-			// sphere.mapTexCoords(0, fbo_src->getHeight(), fbo_src->getWidth(), 0);
+		case EFFECT_TYPE__SPHERES_MATRIX_TEXTURE:
 			sphere.mapTexCoords(0, 0, fbo_src->getWidth(), fbo_src->getHeight());
 			break;
+			
 		case EFFECT_TYPE__BOX_TEXTURE:
-			// Box.mapTexCoords(0, fbo_src->getHeight(), fbo_src->getWidth(), 0);
+		case EFFECT_TYPE__BOXES_MATRIX_TEXTURE:
 			Box.mapTexCoords(0, 0, fbo_src->getWidth(), fbo_src->getHeight());
 			break;
 			
 		case EFFECT_TYPE__CYLINDER_TEXTURE:
-			// cylinder.mapTexCoords(0, fbo_src->getHeight(), fbo_src->getWidth(), 0);
+		case EFFECT_TYPE__CYLINDERS_MATRIX_TEXTURE:
 			cylinder.mapTexCoords(0, 0, fbo_src->getWidth(), fbo_src->getHeight());
 			break;
 			
 		case EFFECT_TYPE__CONE_TEXTURE:
-			// cone.mapTexCoords(0, fbo_src->getHeight(), fbo_src->getWidth(), 0);
 			cone.mapTexCoords(0, 0, fbo_src->getWidth(), fbo_src->getHeight());
 			break;
 	}
@@ -585,17 +655,35 @@ void MOV_EFFECT::draw_PrimitiveTexture(ofFbo* fbo_src, ofFbo* fbo_dst, EFFECT_TY
 			
 			switch(EffectType){
 				case EFFECT_TYPE__SPHERE_TEXTURE:
+					sphere.setPosition(0, 0, 0);
 					sphere.draw();
 					break;
+					
 				case EFFECT_TYPE__BOX_TEXTURE:
+					Box.setPosition(0, 0, 0);
 					Box.draw();
 					break;
+					
 				case EFFECT_TYPE__CYLINDER_TEXTURE:
+					cylinder.setPosition(0, 0, 0);
 					cylinder.draw();
 					break;
 					
 				case EFFECT_TYPE__CONE_TEXTURE:
+					cone.setPosition(0, 0, 0);
 					cone.draw();
+					break;
+					
+				case EFFECT_TYPE__BOXES_MATRIX_TEXTURE:
+					draw_BoxMatrix();
+					break;
+					
+				case EFFECT_TYPE__SPHERES_MATRIX_TEXTURE:
+					draw_SphereMatrix();
+					break;
+					
+				case EFFECT_TYPE__CYLINDERS_MATRIX_TEXTURE:
+					draw_CylinderMatrix();
 					break;
 			}
 			
@@ -628,6 +716,113 @@ void MOV_EFFECT::draw_PrimitiveTexture(ofFbo* fbo_src, ofFbo* fbo_dst, EFFECT_TY
 		ofSetColor(255, 255, 255, 255);
 		ofEnableAlphaBlending();
 		fbo_dst_local.draw(0, 0, ofGetWidth(), ofGetHeight());
+	}
+}
+
+/******************************
+******************************/
+void MOV_EFFECT::draw_CylinderMatrix()
+{
+	const int NUM_PRIMITIVES = 9;
+	float offset = 2;
+	float angle = 5;
+	ofVec3f axis = ofVec3f(0, 1, 0);
+	
+	ofVec3f PosMatrix[NUM_PRIMITIVES] =	{
+											ofVec3f(-2, -1, -1),
+											ofVec3f(-1, -1,  1),
+											ofVec3f( 1, -1,  0),
+											
+											ofVec3f(-1,  0,  0),
+											ofVec3f( 0,  0, -2),
+											ofVec3f( 1,  0,  1),
+											
+											ofVec3f(-2,  1,  0),
+											ofVec3f( 1,  1, -1),
+											ofVec3f( 2,  1,  1),
+										};
+	
+	/********************
+	camera座標が動く.
+	********************/
+	for(int i = 0; i < NUM_PRIMITIVES; i++){
+		ofPushMatrix();
+		
+		ofTranslate(PosMatrix[i].x * cylinder.getRadius() * offset, PosMatrix[i].y * cylinder.getHeight(), PosMatrix[i].z * cylinder.getRadius() * offset);
+		ofRotate(angle * i, axis.x, axis.y, axis.z);
+		
+		cylinder.draw();
+		ofPopMatrix();
+	}
+}
+
+/******************************
+******************************/
+void MOV_EFFECT::draw_SphereMatrix()
+{
+	const int NUM_PRIMITIVES = 9;
+	float offset = 1.9;
+	float angle = 20;
+	ofVec3f axis = ofVec3f(0, 1, 0);
+	
+	ofVec3f PosMatrix[NUM_PRIMITIVES] =	{
+											ofVec3f(-2, -1, -1),
+											ofVec3f(-1, -1,  1),
+											ofVec3f( 1, -1,  0),
+											
+											ofVec3f(-1,  0,  0),
+											ofVec3f( 0,  0, -2),
+											ofVec3f( 1,  0,  1),
+											
+											ofVec3f(-2,  1,  0),
+											ofVec3f( 1,  1, -1),
+											ofVec3f( 2,  1,  1),
+										};
+	
+	/********************
+	camera座標が動く.
+	********************/
+	for(int i = 0; i < NUM_PRIMITIVES; i++){
+		ofPushMatrix();
+		
+		ofTranslate(PosMatrix[i].x * sphere.getRadius() * offset, PosMatrix[i].y * sphere.getRadius() * offset, PosMatrix[i].z * sphere.getRadius() * offset);
+		ofRotate(angle * i, axis.x, axis.y, axis.z);
+		
+		sphere.draw();
+		ofPopMatrix();
+	}
+}
+
+/******************************
+******************************/
+void MOV_EFFECT::draw_BoxMatrix()
+{
+	const int NUM_PRIMITIVES = 9;
+	
+	ofVec3f PosMatrix[NUM_PRIMITIVES] =	{
+											ofVec3f(-2, -1, -1),
+											ofVec3f(-1, -1,  1),
+											ofVec3f( 1, -1,  0),
+											
+											ofVec3f(-1,  0,  0),
+											ofVec3f( 0,  0, -2),
+											ofVec3f( 1,  0,  1),
+											
+											ofVec3f(-2,  1,  0),
+											ofVec3f( 1,  1, -1),
+											ofVec3f( 2,  1,  1),
+										};
+	
+	/********************
+	camera座標が動く.
+	********************/
+	for(int i = 0; i < NUM_PRIMITIVES; i++){
+		ofPushMatrix();
+		
+		ofTranslate(PosMatrix[i].x * Box.getWidth(), PosMatrix[i].y * Box.getHeight(), PosMatrix[i].z * Box.getDepth());
+		
+		Box.draw();
+		ofPopMatrix();
 	}
 }
 
