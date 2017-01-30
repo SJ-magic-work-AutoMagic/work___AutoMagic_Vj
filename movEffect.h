@@ -23,6 +23,7 @@ GLSL expression samples
 #include "sjCommon.h"
 
 #include "movEffect_SphereMapping.h"
+#include "movEffect_LineOffsetPerlin.h"
 
 /************************************************************
 ************************************************************/
@@ -57,6 +58,8 @@ private:
 		EFFECT_TYPE__MIRROR_LR,
 		EFFECT_TYPE__MIRROR_VERT,
 		
+		EFFECT_TYPE__LINE_OFFSET_PERLINE,
+		
 		NUM_EFFECT_TYPE,
 	};
 	
@@ -82,6 +85,11 @@ private:
 	ofShader shader_Mirror_Vert;
 	
 	/********************
+	kaleido scope
+	********************/
+	float k_angle;
+	
+	/********************
 	********************/
 	ofBoxPrimitive Box;
     ofSpherePrimitive sphere;
@@ -90,6 +98,7 @@ private:
 	
     ofEasyCam cam;
 	bool b_cam_orbit;
+	bool b_cam_Enable_MouseInput;
 	
     ofLight light;
     ofMaterial material;
@@ -109,6 +118,7 @@ private:
 	/********************
 	********************/
 	MOV_EFFECT__SPHERE_MAPPING SphereMapping;
+	MOV_EFFECT__LINE_OFFSET_PERLIN LineOffset_Perlin;
 	
 	/****************************************
 	****************************************/

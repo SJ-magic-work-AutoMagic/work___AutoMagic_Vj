@@ -21,6 +21,20 @@ const int NUM_FONT_SIZE = sizeof(FontSize) / sizeof(FontSize[0]);
 const string Contents[] = {
 	"SJ.MAGIC",
 	
+	"Dj NO+CHIN",
+	"Merry X'max",
+	
+	"FEEL ME",
+	"Stop The World",
+	"Up to U",
+	"Never too late",
+	"Nobody's Perfect",
+	"Wish me luck",
+	"no FUTURE in PAST",
+	"No Limit",
+/*
+	"SJ.MAGIC",
+	
 	"TECHNOLOGY",
 	"FEEL",
 	"Peace",
@@ -39,6 +53,7 @@ const string Contents[] = {
 	"no FUTURE in PAST",
 	"find a REMEDY",
 	"No Limit",
+*/
 };
 const int NUM_CONTENTS = sizeof(Contents) / sizeof(Contents[0]);
 

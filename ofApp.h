@@ -16,6 +16,7 @@
 #include "Indicator.h"
 #include "Text.h"
 #include "Strobe.h"
+#include "CG.h"
 
 /************************************************************
 ************************************************************/
@@ -144,10 +145,12 @@ struct DATASET__ALPHA{
 	bool	b_text_on;
 	double	a_Strobe;
 	
+	double	a_Cg;
+	
 	/****************************************
 	****************************************/
 	DATASET__ALPHA()
-	: mov_a(0), b_mov_Effect_On(false), mov_a_0_12(0), b_mov0_Effect_On(false), mov_a_1_2(0), a_indicator(0), a_particle(0), b_GeneratedImage_on(false), b_text_on(false), a_Strobe(0)
+	: mov_a(0), b_mov_Effect_On(false), mov_a_0_12(0), b_mov0_Effect_On(false), mov_a_1_2(0), a_indicator(0), a_particle(0), b_GeneratedImage_on(false), b_text_on(false), a_Strobe(0), a_Cg(0)
 	{
 	}
 };
@@ -178,11 +181,16 @@ private:
 	****************************************/
 	OSC_TARGET OscDj;
 	OSC_TARGET OscVideoServer[NUM_VIDEO_SERVES];
+	OSC_TARGET OscLiveVideoServer;
+	
 	ofxUDPManager udpConnection;
 	
 	ofxSyphonClient video_client[NUM_VIDEO_SERVES][NUM_VIDEOS_PER_SERVER];
 	bool b_ServerReady[NUM_VIDEO_SERVES];
 	int id_VideoServer;
+	
+	ofxSyphonClient LiveVideo_client;
+	bool b_UseLiveVideo;
 	
 	vector<float> spectrum;
 	bool b_1stUdpMessage;
@@ -204,6 +212,10 @@ private:
 	INDICATOR* Indicator;
 	TEXT* Text;
 	STROBE* Strobe;
+	CG* Cg;
+	
+	ofImage img_jacket;
+	
 	
 	/********************
 	********************/
@@ -221,6 +233,10 @@ private:
 	ofxToggle gui__b_GeneratedImage_on;
 	ofxToggle gui__b_text_on;
 	ofxFloatSlider gui__a_Strobe;
+	ofxFloatSlider gui__a_Cg;
+	
+	ofxFloatSlider gui__a_Jacket;
+	ofxToggle gui__b_Mix_Jacket_add;
 
 	/* original inside. */
 	ofxToggle gui__b_Mix_mov12_add;
@@ -266,6 +282,7 @@ public:
 	****************************************/
 	ofApp(int _BootMode);
 	~ofApp();
+	void exit();
 	
 	void setup();
 	void update();

@@ -10,6 +10,7 @@
 ******************************/
 ofApp::ofApp(int _BootMode)
 : OscDj("127.0.0.1", 12348, 12349)
+, OscLiveVideoServer("127.0.0.1", 12356, 12355)
 , b_test_ChangeContents(false)
 , b_1stUdpMessage(true)
 , b_fullScreen(false)
@@ -17,6 +18,8 @@ ofApp::ofApp(int _BootMode)
 , Indicator(INDICATOR::getInstance())
 , Text(TEXT::getInstance())
 , Strobe(STROBE::getInstance())
+, Cg(CG::getInstance())
+, b_UseLiveVideo(false)
 
 #ifdef SJ_REC
 , t_1st_OscMessage_ColorTheme(-1)
@@ -34,6 +37,12 @@ ofApp::ofApp(int _BootMode)
 /******************************
 ******************************/
 ofApp::~ofApp()
+{
+}
+
+/******************************
+******************************/
+void ofApp::exit()
 {
 }
 
@@ -71,6 +80,11 @@ void ofApp::setup(){
 		b_ServerReady[i] = true;
 	}
 	
+	/* */
+	LiveVideo_client.setup();
+	LiveVideo_client.set("LiveVideoServer", "AutoMagic_LiveVideoServer"); // void set(string _serverName, string _appName);
+	
+	
 	/********************
 	********************/
 	udpConnection.Create();
@@ -98,6 +112,11 @@ void ofApp::setup(){
 	Indicator->setup();
 	Text->setup();
 	Strobe->setup();
+	Cg->setup();
+	
+	/********************
+	********************/
+	img_jacket.load("jacket.png");
 }
 
 /******************************
@@ -122,9 +141,14 @@ void ofApp::setup_gui(){
 	gui.add(gui__b_GeneratedImage_on.setup("b_GeneratedImage_on", false));
 	gui.add(gui__b_text_on.setup("b_text_on", false));
 	gui.add(gui__a_Strobe.setup("a_Strobe", 0, 0, 1.0));
+	gui.add(gui__a_Cg.setup("a_Cg", 0, 0, 1.0));
 	
 	/* original inside. */
 	gui.add(gui__b_Mix_mov12_add.setup("b_Mix_mov12_add", false));
+	
+	/* */
+	gui.add(gui__a_Jacket.setup("a_Jacket", 0, 0, 1.0));
+	gui.add(gui__b_Mix_Jacket_add.setup("b_Mix_Jacket_add", false));
 }
 
 /******************************
@@ -171,9 +195,10 @@ void ofApp::Res_OscFrom_Dj()
 			m_send.addIntArg(1);
 			
 			for(int i = 0; i < NUM_VIDEO_SERVES; i++) OscVideoServer[i].OscSend.sendMessage(m_send);
+			OscLiveVideoServer.OscSend.sendMessage(m_send);
 			
 			/* */
-			ofExit(1);
+			std::exit(1);
 			
 		}else if(m_receive.getAddress() == "/VJContentsChange"){
 			m_receive.getArgAsInt32(0); // 読み捨て
@@ -266,6 +291,8 @@ void ofApp::ApplyUdp_ToGui_for_Monitoring()
 	gui__b_GeneratedImage_on = DataSet_Alpha.b_GeneratedImage_on;
 	gui__b_text_on = DataSet_Alpha.b_text_on;
 	gui__a_Strobe = DataSet_Alpha.a_Strobe;
+	
+	// gui__a_Cg = DataSet_Alpha.a_Cg;
 }
 
 /******************************
@@ -284,6 +311,7 @@ void ofApp::overWrite_Dataset_getFromDjUdp_with_gui()
 	DataSet_Alpha.b_GeneratedImage_on	= gui__b_GeneratedImage_on;
 	DataSet_Alpha.b_text_on				= gui__b_text_on;
 	DataSet_Alpha.a_Strobe				= gui__a_Strobe;
+	DataSet_Alpha.a_Cg					= gui__a_Cg;
 }
 
 //--------------------------------------------------------------
@@ -321,6 +349,7 @@ void ofApp::update(){
 	Indicator->update(spectrum);
 	Text->update();
 	Strobe->update();
+	Cg->update();
 }
 
 /******************************
@@ -370,6 +399,7 @@ void ofApp::ColorChange(COLORPATTERNS id)
 {
 	particle->set_color( id );
 	Indicator->set_color( id );
+	Cg->set_color( id );
 }
 
 /******************************
@@ -425,8 +455,12 @@ void ofApp::draw(){
 		ofSetColor(255, 255, 255, 255);
 		ofDisableAlphaBlending();
 		
-		// video_client[id_VideoServer][i].draw(0, 0, fbo[i].getWidth(), fbo[i].getHeight());
-		video_client[id_VideoServer][i].draw(0, 0); // w, h を指定すると、videoが来ていない時の画面が何故か白くなった. 黒くするためにこちらのcodeを採用.
+		if( (i == 0) && (b_UseLiveVideo) ){
+			LiveVideo_client.draw(0, 0);
+		}else{
+			// video_client[id_VideoServer][i].draw(0, 0, fbo[i].getWidth(), fbo[i].getHeight());
+			video_client[id_VideoServer][i].draw(0, 0); // w, h を指定すると、videoが来ていない時の画面が何故か白くなった. 黒くするためにこちらのcodeを採用.
+		}
 		
 		fbo[i].end();
 	}
@@ -455,6 +489,20 @@ void ofApp::draw(){
 	}
 	
 	Strobe->draw(DataSet_Alpha.a_Strobe);
+	
+	Cg->draw(gui__a_Cg); // not received from Dj now(will be implemented).
+	
+	/********************
+	********************/
+	ofPushStyle();
+		ofEnableAlphaBlending();
+		if(gui__b_Mix_Jacket_add)	ofEnableBlendMode(OF_BLENDMODE_ADD);
+		else						ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+		
+		ofSetColor(255, 255, 255, int(255 * gui__a_Jacket));
+		
+		img_jacket.draw(0, 0, ofGetWidth(), ofGetHeight());
+	ofPopStyle();
 	
 	/********************
 	********************/
@@ -539,6 +587,8 @@ void ofApp::keyPressed(int key){
 		INPUT_TEXT,
 		INPUT_STROBE,
 		INPUT_MOV_EFFECT,
+		
+		INPUT_3DCG,
 	};
 	static INPUT_STATE InputState = INPUT_NORMAL;
 	
@@ -579,6 +629,11 @@ void ofApp::keyPressed(int key){
 				}
 				break;
 				
+			case 'g':
+				InputState = INPUT_3DCG;
+				printMessage("key for 3D CG");
+				break;
+				
 			case 'i':
 				if(DataSet_Alpha.b_GeneratedImage_on){
 					InputState = INPUT_INDICATOR;
@@ -605,6 +660,12 @@ void ofApp::keyPressed(int key){
 			case 't':
 				InputState = INPUT_TEXT;
 				printMessage("key for text");
+				break;
+				
+			case 'v':
+				b_UseLiveVideo = !b_UseLiveVideo;
+				printMessage("Live Video");
+				printf("%d\n", b_UseLiveVideo);
 				break;
 				
 			case 'r':
@@ -644,6 +705,11 @@ void ofApp::keyPressed(int key){
 		mov0_Effect.keyPressed(key);
 		mov_Effect.keyPressed(key);
 		InputState = INPUT_NORMAL;
+		
+	}else if(InputState == INPUT_3DCG){
+		Cg->keyPressed(key);
+		InputState = INPUT_NORMAL;
+		
 	}
 }
 
