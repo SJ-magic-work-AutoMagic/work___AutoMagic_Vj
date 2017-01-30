@@ -16,25 +16,26 @@ struct WEIGHT_GRAY{
 };
 
 WEIGHT_GRAY EffectCombination[MOV_EFFECT::NUM_EFFECT_TYPE_COMBINATION] = {
-//			→ mov																
-//	↓ mov 0		KALEIDOSCOPE	SPHERE_TEXTURE	BOX_TEXTURE	CYLINDER_TEXTURE	CONE_TEXTURE	BOXES_MATRIX_TEXTURE	SPHERES_MATRIX_TEXTURE	CYLINDERS_MATRIX_TEXTURE	SPLIT_2x2	SPLIT_3x3	SPLIT_5x5	PARTICLE	MOSAIC	NOISE	SPHERE_MAPPING	MIRROR_LR	MIRROR_VERT
-/*	EFFECT_TYPE__KALEIDOSCOPE	*/	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1,false},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__SPHERE_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__BOX_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__CYLINDER_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__CONE_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__BOXES_MATRIX_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__SPHERES_MATRIX_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__CYLINDERS_MATRIX_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__SPLIT_2x2	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1, true},	{1, true},	{1, true},	{1,false},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__SPLIT_3x3	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1, true},	{1, true},	{1,false},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__SPLIT_5x5	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1, true},	{1,false},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__PARTICLE	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},	{0, true},	{1,false},	{1,false},	{1,false},	{1,false},
-/*	EFFECT_TYPE__MOSAIC	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__NOISE	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__SPHERE_MAPPING	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},	{1, true},	{1, true},
-/*	EFFECT_TYPE__MIRROR_LR	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},	{1, true},
-/*	EFFECT_TYPE__MIRROR_VERT	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},
+//			→ mov																	
+//	↓ mov 0		KALEIDOSCOPE	SPHERE_TEXTURE	BOX_TEXTURE	CYLINDER_TEXTURE	CONE_TEXTURE	BOXES_MATRIX_TEXTURE	SPHERES_MATRIX_TEXTURE	CYLINDERS_MATRIX_TEXTURE	SPLIT_2x2	SPLIT_3x3	SPLIT_5x5	PARTICLE	MOSAIC	NOISE	SPHERE_MAPPING	MIRROR_LR	MIRROR_VERT	LINE_OFFSET_PERLINE
+/*	EFFECT_TYPE__KALEIDOSCOPE	*/	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1,false},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__SPHERE_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__BOX_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__CYLINDER_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__CONE_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__BOXES_MATRIX_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__SPHERES_MATRIX_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__CYLINDERS_MATRIX_TEXTURE	*/	{1,false},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{0, true},	{1, true},	{1, true},	{1, true},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__SPLIT_2x2	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1, true},	{1, true},	{1, true},	{1,false},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__SPLIT_3x3	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1, true},	{1, true},	{1,false},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__SPLIT_5x5	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1, true},	{1,false},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__PARTICLE	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},	{0, true},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},
+/*	EFFECT_TYPE__MOSAIC	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__NOISE	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__SPHERE_MAPPING	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},	{1, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__MIRROR_LR	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},	{1, true},	{1, true},
+/*	EFFECT_TYPE__MIRROR_VERT	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},	{1, true},
+/*	EFFECT_TYPE__LINE_OFFSET_PERLINE	*/	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{1,false},	{0, true},
 };
 
 /************************************************************
@@ -45,6 +46,8 @@ WEIGHT_GRAY EffectCombination[MOV_EFFECT::NUM_EFFECT_TYPE_COMBINATION] = {
 MOV_EFFECT::MOV_EFFECT()
 : EffectType(EFFECT_TYPE__KALEIDOSCOPE)
 , b_cam_orbit(false)
+, b_cam_Enable_MouseInput(true)
+, k_angle(0)
 {
 }
 
@@ -156,6 +159,7 @@ void MOV_EFFECT::setup()
 	/********************
 	********************/
 	SphereMapping.setup();
+	LineOffset_Perlin.setup();
 }
 
 /******************************
@@ -200,6 +204,7 @@ void MOV_EFFECT::update()
 	/********************
 	********************/
 	SphereMapping.update();
+	LineOffset_Perlin.update();
 }
 
 /******************************
@@ -262,6 +267,10 @@ void MOV_EFFECT::draw(bool b_EffectOn, ofFbo* fbo_src, ofFbo* fbo_dst)
 				
 			case EFFECT_TYPE__MIRROR_VERT:
 				draw_Mirror_Vert(fbo_src, fbo_dst);
+				break;
+				
+			case EFFECT_TYPE__LINE_OFFSET_PERLINE:
+				LineOffset_Perlin.draw(fbo_src, fbo_dst);
 				break;
 				
 			default:
@@ -594,7 +603,8 @@ void MOV_EFFECT::cam_orbit_motion()
 	if(b_cam_orbit){
 		float time = ofGetElapsedTimef();
 		float longitude = 15 * time; // rotation speed
-		float latitude = ofGetWidth() * 0.013 * sin(time*0.8); // y方向に軽く揺らす.
+		// float latitude = ofGetWidth() * 0.013 * sin(time*0.8); // y方向に軽く揺らす.
+		float latitude = 15 * sin(time*0.8); // y方向に軽く揺らす.
 		float radius = ofGetWidth() * 0.4 + ofGetWidth() * 0.04 * sin(time*0.4);
 		cam.orbit( longitude, latitude, radius, ofPoint(0,0,0) );
 	}
@@ -831,6 +841,18 @@ void MOV_EFFECT::draw_BoxMatrix()
 void MOV_EFFECT::draw_Kaleido(ofFbo* fbo_src, ofFbo* fbo_dst)
 {
 	/********************
+	********************/
+	static float LastInt_sec = 0;
+	float now = ofGetElapsedTimef();
+	float dt = ofClamp(now - LastInt_sec, 0, 0.1);
+	
+	const float deg_per_sec = 10;
+	k_angle += deg_per_sec * dt;
+	if(360 <= k_angle) k_angle -= 360;
+	
+	LastInt_sec = now;
+	
+	/********************
 	draw to local fbo that has same size of fbo_src.
 	********************/
 	ofFbo fbo_dst_local;
@@ -846,8 +868,10 @@ void MOV_EFFECT::draw_Kaleido(ofFbo* fbo_src, ofFbo* fbo_dst)
 		shader_Kaleido.setUniform2f( "screenCenter", fbo_dst_local.getWidth()/2, fbo_dst_local.getHeight()/2 );
 		shader_Kaleido.setUniform2f( "kcenter", fbo_src->getWidth()/2, fbo_src->getHeight()/2 );
 		shader_Kaleido.setUniform1i( "ksectors", 10 );
-		// shader_Kaleido.setUniform1f( "kangleRad", ofDegToRad(k_angle) );
-		shader_Kaleido.setUniform1f( "kangleRad", 0 );
+		
+		shader_Kaleido.setUniform1f( "kangleRad", ofDegToRad(k_angle) );
+		// shader_Kaleido.setUniform1f( "kangleRad", 0 );
+		
 		shader_Kaleido.setUniform1f( "alpha", 1.0 );
 		fbo_src->draw(0, 0, fbo_dst_local.getWidth(), fbo_dst_local.getHeight());
 	
@@ -920,6 +944,15 @@ void MOV_EFFECT::keyPressed(int key)
 				Set_EffectType(key - '0');
 			}
 		}
+			break;
+			
+		case 'c':
+			b_cam_Enable_MouseInput = !b_cam_Enable_MouseInput;
+			if(b_cam_Enable_MouseInput)	cam.enableMouseInput();
+			else						cam.disableMouseInput();
+			
+			printf("b_cam_Enable_MouseInput = %d\n", b_cam_Enable_MouseInput);
+
 			break;
 			
 		case 'd':
