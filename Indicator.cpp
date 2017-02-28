@@ -106,54 +106,55 @@ void INDICATOR::update(vector<float>& spectrum)
 ******************************/
 void INDICATOR::changeParam_MusicSync(vector<float>& spectrum)
 {
+	const double TypicalLev = 0.5;
 	float Lev = spectrum[1];
 	
 	switch(id_pattern){
 		case -1:
-			countX = ofMap(Lev, 0, 2.0, 0, 200, true);
+			countX = ofMap(Lev, 0, TypicalLev, 0, 200, true);
 			break;
 			
 		case 0:
 		case 1:
-			stepX = ofMap(Lev, 0, 2.0, 50, 200, true);
+			stepX = ofMap(Lev, 0, TypicalLev, 50, 170, true);
 			break;
 			
 		case 2:
 		{
-			stepX = ofMap(Lev, 0, 2.0, 50, 200, true);
+			stepX = ofMap(Lev, 0, TypicalLev, 50, 200, true);
 		}
 			break;
 			
 		case 3:
 		case 4:
 		{
-			twistX = ofMap(Lev, 0, 2.0, 0, 45, true);
+			twistX = ofMap(Lev, 0, TypicalLev, 0, 45, true);
 		}
 			break;
 			
 		case 5:
 		{
-			stepX = ofMap(Lev, 0, 2.0, 60, 300, true);
+			stepX = ofMap(Lev, 0, TypicalLev, 60, 270, true);
 		}
 			break;
 			
 		case 6:
 		{
-			stepX = ofMap(Lev, 0, 2.0, 0, 300, true);
+			stepX = ofMap(Lev, 0, TypicalLev, 100, 300, true);
 			
 			ofColor temp = color;
-			temp.a = ofMap(Lev, 0, 2.0, 0, 120, true);
+			temp.a = ofMap(Lev, 0, TypicalLev, 0, 120, true);
 			color = temp;
 		}
 			break;
 			
 		case 7:
 		{
-			stepX = ofMap(Lev, 0, 2.0, 0, 200, true);
-			// stepY = ofMap(Lev, 0, 2.0, 0, 150, true);
+			stepX = ofMap(Lev, 0, TypicalLev, 0, 200, true);
+			// stepY = ofMap(Lev, 0, TypicalLev, 0, 150, true);
 			
 			ofColor temp = color;
-			temp.a = ofMap(Lev, 0, 2.0, 50, 180, true);
+			temp.a = ofMap(Lev, 0, TypicalLev, 50, 180, true);
 			color = temp;
 		}
 			break;
@@ -510,6 +511,9 @@ void INDICATOR::set_color(COLORPATTERNS colorTheme)
 				color = ofColor(255, 25, 255, temp.a);
 			}
 		}
+			break;
+			
+		default:
 			break;
 	}
 }

@@ -19,6 +19,7 @@ const int FontSize[] = {
 const int NUM_FONT_SIZE = sizeof(FontSize) / sizeof(FontSize[0]);
 
 const string Contents[] = {
+/*
 	"SJ.MAGIC",
 	
 	"Dj NO+CHIN",
@@ -32,7 +33,7 @@ const string Contents[] = {
 	"Wish me luck",
 	"no FUTURE in PAST",
 	"No Limit",
-/*
+*/	
 	"SJ.MAGIC",
 	
 	"TECHNOLOGY",
@@ -53,7 +54,6 @@ const string Contents[] = {
 	"no FUTURE in PAST",
 	"find a REMEDY",
 	"No Limit",
-*/
 };
 const int NUM_CONTENTS = sizeof(Contents) / sizeof(Contents[0]);
 
@@ -85,6 +85,13 @@ void TEXT::setup()
 		// font[i].loadFont("Glamor-Bold.ttf", FontSize[i]);
 		
 	}
+}
+
+/******************************
+******************************/
+void TEXT::set_RefreshRate(int BeatInterval_ms)
+{
+	RefreshTime_sec = ofMap(BeatInterval_ms, 600/* 100Bpm */, 3000, 0.060, 0.500, true);
 }
 
 /******************************
