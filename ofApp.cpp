@@ -11,6 +11,11 @@
 ofApp::ofApp(int _BootMode)
 : OscDj("127.0.0.1", 12348, 12349)
 , OscLiveVideoServer("127.0.0.1", 12356, 12355)
+
+// , Osc_AcsMotion("127.0.0.1", 15001, 15000)
+, Osc_AcsMotion("10.0.0.1", 15001, 15000)	// when not connected, app crashes.
+												// 127.0.0.1 is OK.
+
 , b_test_ChangeContents(false)
 , b_1stUdpMessage(true)
 , b_fullScreen(false)
@@ -141,7 +146,7 @@ void ofApp::setup_gui(){
 	gui.add(gui__b_GeneratedImage_on.setup("b_GeneratedImage_on", false));
 	gui.add(gui__b_text_on.setup("b_text_on", false));
 	gui.add(gui__a_Strobe.setup("a_Strobe", 0, 0, 1.0));
-	gui.add(gui__a_Cg.setup("a_Cg", 0, 0, 1.0));
+	gui.add(gui__a_Cg.setup("a_Cg", 1.0, 0, 1.0));
 	
 	/* original inside. */
 	gui.add(gui__b_Mix_mov12_add.setup("b_Mix_mov12_add", false));
@@ -165,6 +170,26 @@ void ofApp::Res_OscFrom_VideoServer()
 				
 				b_ServerReady[i] = true;
 			}
+		}
+	}
+}
+
+/******************************
+******************************/
+void ofApp::ChangeCgId_OscFrom_AcsMotion()
+{
+	while(Osc_AcsMotion.OscReceive.hasWaitingMessages()){
+		ofxOscMessage m_receive;
+		Osc_AcsMotion.OscReceive.getNextMessage(&m_receive);
+		
+		if(m_receive.getAddress() == "/Motion"){
+			int MotionId = m_receive.getArgAsInt32(0);
+			
+			int temp_i		= m_receive.getArgAsInt32(1);
+			float temp_f	= m_receive.getArgAsFloat(2);
+			temp_f			= m_receive.getArgAsFloat(3);
+			
+			Cg->ChangeId(MotionId);
 		}
 	}
 }
@@ -218,7 +243,7 @@ void ofApp::Res_OscFrom_Dj()
 			
 		}else if(m_receive.getAddress() == "/VJ_BpmInfo"){
 			int BeatInterval_ms = m_receive.getArgAsInt32(0);
-			// do nothing now.
+			Text->set_RefreshRate(BeatInterval_ms);
 		}
 	}
 }
@@ -324,6 +349,8 @@ void ofApp::update(){
 	
 	get_UdpMessage_From_Dj();
 	
+	ChangeCgId_OscFrom_AcsMotion();
+	
 	/********************
 	********************/
 	if(BootMode == MODE_TEST){
@@ -349,6 +376,7 @@ void ofApp::update(){
 	Indicator->update(spectrum);
 	Text->update();
 	Strobe->update();
+	
 	Cg->update();
 }
 

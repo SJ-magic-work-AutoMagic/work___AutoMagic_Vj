@@ -23,23 +23,30 @@ private:
 		DRAW_TYPE__WIREFRAME,
 	};
 	
+	enum MOTIONTYPE{
+		MOTIONTYPE__SLIDE,
+		MOTIONTYPE__SLIDE1,
+		
+		NUM_MOTIONTYPES,
+	};
+	
 	/****************************************
 	****************************************/
 	/********************
 	********************/
-	int NUM_ANIMATIONS;
-	int id_Animation;
+	int MotionId;
 	DRAW_TYPE DrawType;
 	
-	ofxAssimpModelLoader model;
-	ofxAssimpAnimation *modelAnimation;
+	ofxAssimpModelLoader model[NUM_MOTIONTYPES];
+	ofxAssimpAnimation *modelAnimation[NUM_MOTIONTYPES];
 	
+	/********************
+	********************/
 	ofEasyCam camera;
 	bool b_cam_orbit;
 	
 	ofFbo fbo;
 	
-	bool b_Always_Draw;
 	double CamDistane_Still;
 	
 	/********************
@@ -104,6 +111,8 @@ public:
 	void update();
 	void draw(double Cg_a);
 	void keyPressed(int key);
+	
+	void ChangeId(int _MotionId);
 	
 	void set_color(COLORPATTERNS colorTheme);
 };

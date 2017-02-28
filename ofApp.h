@@ -182,6 +182,7 @@ private:
 	OSC_TARGET OscDj;
 	OSC_TARGET OscVideoServer[NUM_VIDEO_SERVES];
 	OSC_TARGET OscLiveVideoServer;
+	OSC_TARGET Osc_AcsMotion;
 	
 	ofxUDPManager udpConnection;
 	
@@ -269,6 +270,7 @@ private:
 	void ColorChange(COLORPATTERNS id);
 	
 	void Res_OscFrom_VideoServer();
+	void ChangeCgId_OscFrom_AcsMotion();
 	void Res_OscFrom_Dj();
 	void get_UdpMessage_From_Dj();
 	void overWrite_Dataset_getFromDjUdp_with_gui();

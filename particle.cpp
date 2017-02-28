@@ -219,7 +219,8 @@ void PARTICLE_SET::RandomSet_GravityPosition()
 		case GRAVITY_POS__BOTTOM_RIGHT:
 			printf("GRAVITY_POS__BOTTOM_RIGHT\n");
 			break;
-		
+		default:
+			break;
 	}
 }
 
@@ -270,6 +271,8 @@ void PARTICLE_SET::SetGravityPos(GRAVITY_POS pos)
 		case GRAVITY_POS__BOTTOM_RIGHT:
 			mouseX = int(ofGetWidth() * (1 - x_ofs));
 			mouseY = int(ofGetHeight() * (1 - y_ofs));
+			break;
+		default:
 			break;
 	}
 }
@@ -549,6 +552,9 @@ void PARTICLE_SET::set_color(COLORPATTERNS colorTheme)
 				CommonColor = ofVec4f(1, 1, 0.15, 0.5);
 			}
 		}
+			break;
+			
+		default:
 			break;
 	}
 }

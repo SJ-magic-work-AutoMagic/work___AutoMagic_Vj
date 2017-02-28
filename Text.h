@@ -29,7 +29,7 @@ private:
 	****************************************/
 	/********************
 	********************/
-	const double RefreshTime_sec;
+	double RefreshTime_sec;
 	
 	/********************
 	********************/
@@ -61,6 +61,7 @@ public:
 	}
 	
 	void setup();
+	void set_RefreshRate(int BeatInterval_ms);
 	void update();
 	void draw();
 	

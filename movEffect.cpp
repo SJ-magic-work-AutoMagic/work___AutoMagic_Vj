@@ -199,6 +199,9 @@ void MOV_EFFECT::update()
 		case EFFECT_TYPE__CONE_TEXTURE:
 			cone.set(ofGetWidth() * 0.15, ofGetWidth() * 0.25, 60, 60);
 			break;
+			
+		default:
+			break;
 	}
 	
 	/********************
@@ -639,6 +642,9 @@ void MOV_EFFECT::draw_PrimitiveTexture(ofFbo* fbo_src, ofFbo* fbo_dst, EFFECT_TY
 		case EFFECT_TYPE__CONE_TEXTURE:
 			cone.mapTexCoords(0, 0, fbo_src->getWidth(), fbo_src->getHeight());
 			break;
+			
+		default:
+			break;
 	}
 	
 	ofEnableDepthTest();
@@ -694,6 +700,9 @@ void MOV_EFFECT::draw_PrimitiveTexture(ofFbo* fbo_src, ofFbo* fbo_dst, EFFECT_TY
 					
 				case EFFECT_TYPE__CYLINDERS_MATRIX_TEXTURE:
 					draw_CylinderMatrix();
+					break;
+					
+				default:
 					break;
 			}
 			
