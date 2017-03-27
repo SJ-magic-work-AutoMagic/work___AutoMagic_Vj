@@ -169,7 +169,12 @@ private:
 		HEIGHT_SMALL = 540,
 	};
 	enum{
+#ifdef ONE_VIDEO_SERVER
+		NUM_VIDEO_SERVES = 1,
+#else
 		NUM_VIDEO_SERVES = 2,
+#endif
+
 		NUM_VIDEOS_PER_SERVER = 3,
 	};
 	enum{
@@ -179,6 +184,13 @@ private:
 	
 	/****************************************
 	****************************************/
+
+	/********************
+	********************/
+	ofxSyphonServer mainOutputSyphonServer;
+	
+	/********************
+	********************/
 	OSC_TARGET OscDj;
 	OSC_TARGET OscVideoServer[NUM_VIDEO_SERVES];
 	OSC_TARGET OscLiveVideoServer;

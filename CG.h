@@ -24,18 +24,51 @@ private:
 	};
 	
 	enum MOTIONTYPE{
+		MOTIONTYPE__LOOP,
+		
+		MOTIONTYPE__LACOSTE,
+		MOTIONTYPE__MAENORI,
 		MOTIONTYPE__SLIDE,
-		MOTIONTYPE__SLIDE1,
+		MOTIONTYPE__BIZ,
+		MOTIONTYPE__BIZ_SKIN,
 		
 		NUM_MOTIONTYPES,
+	};
+	
+	class CHANGE_ID_BY_KEY{
+	private:
+		bool b_Change;
+		int NewMotionId;
+	public:
+		CHANGE_ID_BY_KEY()
+		: b_Change(false)
+		{
+		}
+		
+		void set_NewId(int _id){
+			NewMotionId = _id;
+			b_Change = true;
+		}
+		
+		int get_NewId(){
+			b_Change = false;
+			return NewMotionId;
+		}
+		
+		bool Is_setNewId(){
+			return b_Change;
+		}
 	};
 	
 	/****************************************
 	****************************************/
 	/********************
 	********************/
+	bool b_Enable;
 	int MotionId;
 	DRAW_TYPE DrawType;
+	
+	CHANGE_ID_BY_KEY ChangeId_ByKeyboard;
 	
 	ofxAssimpModelLoader model[NUM_MOTIONTYPES];
 	ofxAssimpAnimation *modelAnimation[NUM_MOTIONTYPES];

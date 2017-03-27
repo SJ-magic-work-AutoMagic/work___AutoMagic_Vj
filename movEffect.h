@@ -106,8 +106,13 @@ private:
 	/********************
 	********************/
 	enum{
+		PARTICLE_WIDTH	= 160,
+		PARTICLE_HEIGHT	= 90,
+		
+/*
 		PARTICLE_WIDTH	= 640,
 		PARTICLE_HEIGHT	= 360,
+*/
 		NUM_PARTICLES	= PARTICLE_WIDTH * PARTICLE_HEIGHT,
 	};
 	
