@@ -8,7 +8,8 @@
 /******************************
 ******************************/
 CG::CG()
-: MotionId(-1)
+: b_Enable(false)
+, MotionId(MOTIONTYPE__LOOP)
 , DrawType(DRAW_TYPE__FACE)
 , b_DispGui(false)
 , b_cam_orbit(false)
@@ -53,10 +54,11 @@ void CG::setup(){
 		OF_LOOP_PALINDROME		0x02
 		OF_LOOP_NORMAL			0x03
 		********************/
-		model[i].setLoopStateForAllAnimations(OF_LOOP_NONE);
+		if(i == MOTIONTYPE__LOOP)	model[i].setLoopStateForAllAnimations(OF_LOOP_NORMAL);
+		else						model[i].setLoopStateForAllAnimations(OF_LOOP_NONE);
 		modelAnimation[i] = &model[i].getAnimation(0 /* 同一File内に複数Animation定義されている時用の引数 */); // Animation部分をpointer経由で受け取り、これに対して作業を行うことで、複数のAnimation定義を使い分けることが可能.
 		
-		// modelAnimation[i]->play();
+		if(i == MotionId) modelAnimation[i]->play();
 	}
 
 	/********************
@@ -104,7 +106,8 @@ void CG::setup_gui()
 	********************/
 	{
 		float thresh = 2000;
-		ofVec3f position_init = ofVec3f(0, 105, 0);
+		// ofVec3f position_init = ofVec3f(0, 105, 0);
+		ofVec3f position_init = ofVec3f(0, 306, 0);
 		ofVec3f position_min = ofVec3f(-thresh, -thresh, -thresh);
 		ofVec3f position_max = ofVec3f(thresh, thresh, thresh);
 		gui.add(cam_Target.setup("cam target", position_init, position_min, position_max));
@@ -114,7 +117,7 @@ void CG::setup_gui()
 	{
 		guiGp_CamOrbit.add(cam_Speed.setup("cam speed", 22, 10, 100));
 		guiGp_CamOrbit.add(cam_latitude.setup("latitude", 0, -90.0, 90.0));
-		guiGp_CamOrbit.add(cam_radius.setup("radius", 0.35, 0.2, 2.0));
+		guiGp_CamOrbit.add(cam_radius.setup("radius", 0.45, 0.2, 2.0));
 	}
 	gui.add(&guiGp_CamOrbit);
 	
@@ -158,13 +161,12 @@ void CG::ChangeId(int _MotionId)
 {
 	printf("Change CG Motion:%d -> %d\n", MotionId, _MotionId);
 	
-	if(MotionId != -1){
-		modelAnimation[MotionId]->stop();
-	}
-	
 	if(NUM_MOTIONTYPES <= _MotionId){
-		MotionId = -1;
+		printf("motion id : out of range.\n");
+		
 	}else{
+		modelAnimation[MotionId]->stop();
+		
 		MotionId = _MotionId;
 		
 		modelAnimation[MotionId]->play();
@@ -175,6 +177,12 @@ void CG::ChangeId(int _MotionId)
 /******************************
 ******************************/
 void CG::update(){
+	/********************
+	********************/
+	if(ChangeId_ByKeyboard.Is_setNewId()){
+		ChangeId(ChangeId_ByKeyboard.get_NewId());
+	}
+	
 	/********************
 	validでないCGも、全てupdate() し続けないと、狙った通り動作しない。
 	validにした時、途中からの再生になってしまう、など。
@@ -190,12 +198,10 @@ void CG::update(){
 	
 	/********************
 	********************/
-	if(MotionId != -1){
+	if(MotionId != MOTIONTYPE__LOOP){
 		if(modelAnimation[MotionId]->isFinished()){
 			printf("Fin CG motion:%d\n", MotionId);
-			
-			modelAnimation[MotionId]->stop();
-			MotionId = -1;
+			ChangeId(MOTIONTYPE__LOOP);
 		}
 	}
 }
@@ -335,7 +341,7 @@ description
 ******************************/
 void CG::draw(double Cg_a){
 
-	if( MotionId != -1 ){
+	if(b_Enable){
 		/********************
 		********************/
 		ofPushStyle();
@@ -404,11 +410,12 @@ void CG::draw(double Cg_a){
 						break;
 						
 					case DRAW_TYPE__POINTS:
-						glPointSize(2.0);
+						glPointSize(6.0);
 						model[MotionId].draw(OF_MESH_POINTS); // same as model.drawVertices();
 						break;
 						
 					case DRAW_TYPE__WIREFRAME:
+						glLineWidth(2);
 						model[MotionId].draw(OF_MESH_WIREFRAME); // same as model.drawWireframe();
 						break;
 				}
@@ -451,7 +458,6 @@ void CG::draw(double Cg_a){
 void CG::keyPressed(int key)
 {
 	switch(key){
-	/*
 		case '0':
 		case '1':
 		case '2':
@@ -464,16 +470,11 @@ void CG::keyPressed(int key)
 		case '9':
 		{
 			int id_Animation_temp = key - '0';
-			if(id_Animation_temp < NUM_ANIMATIONS){
-				id_Animation = id_Animation_temp;
-				
-				modelAnimation->stop();
-				modelAnimation = &model.getAnimation(id_Animation); // Animation部分をpointer経由で受け取り、これに対して作業を行うことで、複数のAnimation定義を使い分けることが可能.
-				modelAnimation->play();
+			if(id_Animation_temp < NUM_MOTIONTYPES){
+				ChangeId_ByKeyboard.set_NewId(id_Animation_temp);
 			}
 		}
 			break;
-	*/
 			
 		case 'c':
 			b_cam_orbit = !b_cam_orbit;
@@ -486,6 +487,10 @@ void CG::keyPressed(int key)
 			
 		case 'd':
 			b_DispGui = !b_DispGui;
+			break;
+			
+		case 'e':
+			b_Enable = !b_Enable;
 			break;
 			
 		case 'f':

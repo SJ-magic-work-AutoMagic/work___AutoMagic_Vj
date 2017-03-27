@@ -513,7 +513,8 @@ void MOV_EFFECT::draw_Particle(ofFbo* fbo_src, ofFbo* fbo_dst)
 				
 				float brightness = (r + g + b) / 3.0f;
 				
-				Verts[y * PARTICLE_WIDTH + x] = ofVec3f(x - PARTICLE_WIDTH/2, y - PARTICLE_HEIGHT/2, brightness * 255 - 128);
+				// Verts[y * PARTICLE_WIDTH + x] = ofVec3f(x - PARTICLE_WIDTH/2, y - PARTICLE_HEIGHT/2, brightness * 255 - 128);
+				Verts[y * PARTICLE_WIDTH + x] = ofVec3f(x - PARTICLE_WIDTH/2, y - PARTICLE_HEIGHT/2, brightness * 90 - 45);
 				Color[y * PARTICLE_WIDTH + x] = ofFloatColor(r, g, b, 0.8);
 			}
 		}
@@ -528,7 +529,7 @@ void MOV_EFFECT::draw_Particle(ofFbo* fbo_src, ofFbo* fbo_dst)
 		cam.begin();
 		ofPushMatrix();
 		ofScale(1, -1, 1);
-		glPointSize(1.5);
+		glPointSize(2.5);
 		Vbo.draw(GL_POINTS, 0, NUM_PARTICLES);
 		ofPopMatrix();
 		cam.end();
@@ -603,13 +604,25 @@ void MOV_EFFECT::draw_Split(ofFbo* fbo_src, ofFbo* fbo_dst, int NumSplit)
 ******************************/
 void MOV_EFFECT::cam_orbit_motion()
 {
-	if(b_cam_orbit){
-		float time = ofGetElapsedTimef();
-		float longitude = 15 * time; // rotation speed
-		// float latitude = ofGetWidth() * 0.013 * sin(time*0.8); // y方向に軽く揺らす.
-		float latitude = 15 * sin(time*0.8); // y方向に軽く揺らす.
-		float radius = ofGetWidth() * 0.4 + ofGetWidth() * 0.04 * sin(time*0.4);
-		cam.orbit( longitude, latitude, radius, ofPoint(0,0,0) );
+	if(EffectType == EFFECT_TYPE__PARTICLE){
+		if(b_cam_orbit){
+			float time = ofGetElapsedTimef();
+			float longitude = 15 * time; // rotation speed
+			// float latitude = ofGetWidth() * 0.013 * sin(time*0.8); // y方向に軽く揺らす.
+			float latitude = 15 * sin(time*0.8); // y方向に軽く揺らす.
+			float radius = ofGetWidth() * 0.08 + ofGetWidth() * 0.008 * sin(time*0.4);
+			cam.orbit( longitude, latitude, radius, ofPoint(0,0,0) );
+		}
+		
+	}else{
+		if(b_cam_orbit){
+			float time = ofGetElapsedTimef();
+			float longitude = 15 * time; // rotation speed
+			// float latitude = ofGetWidth() * 0.013 * sin(time*0.8); // y方向に軽く揺らす.
+			float latitude = 15 * sin(time*0.8); // y方向に軽く揺らす.
+			float radius = ofGetWidth() * 0.4 + ofGetWidth() * 0.04 * sin(time*0.4);
+			cam.orbit( longitude, latitude, radius, ofPoint(0,0,0) );
+		}
 	}
 }
 

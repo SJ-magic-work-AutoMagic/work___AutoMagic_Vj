@@ -89,6 +89,9 @@ void ofApp::setup(){
 	LiveVideo_client.setup();
 	LiveVideo_client.set("LiveVideoServer", "AutoMagic_LiveVideoServer"); // void set(string _serverName, string _appName);
 	
+	/********************
+	********************/
+	mainOutputSyphonServer.setName("Vj Screen Output");
 	
 	/********************
 	********************/
@@ -556,8 +559,11 @@ void ofApp::draw(){
 			ofDrawBitmapString(TimeFrom_1stMessage, 10, 20);
 		}
 	}
-#endif	
-	
+#endif
+
+	/********************
+	********************/
+	mainOutputSyphonServer.publishScreen();
 }
 
 /******************************
