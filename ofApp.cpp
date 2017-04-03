@@ -13,7 +13,7 @@ ofApp::ofApp(int _BootMode)
 , OscLiveVideoServer("127.0.0.1", 12356, 12355)
 
 // , Osc_AcsMotion("127.0.0.1", 15001, 15000)
-, Osc_AcsMotion("10.0.0.1", 15001, 15000)	// when not connected, app crashes.
+// , Osc_AcsMotion("10.0.0.1", 15001, 15000)	// when not connected, app crashes.
 												// 127.0.0.1 is OK.
 
 , b_test_ChangeContents(false)
@@ -23,7 +23,7 @@ ofApp::ofApp(int _BootMode)
 , Indicator(INDICATOR::getInstance())
 , Text(TEXT::getInstance())
 , Strobe(STROBE::getInstance())
-, Cg(CG::getInstance())
+// , Cg(CG::getInstance())
 , b_UseLiveVideo(false)
 
 #ifdef SJ_REC
@@ -120,7 +120,7 @@ void ofApp::setup(){
 	Indicator->setup();
 	Text->setup();
 	Strobe->setup();
-	Cg->setup();
+	// Cg->setup();
 	
 	/********************
 	********************/
@@ -181,6 +181,7 @@ void ofApp::Res_OscFrom_VideoServer()
 ******************************/
 void ofApp::ChangeCgId_OscFrom_AcsMotion()
 {
+/*
 	while(Osc_AcsMotion.OscReceive.hasWaitingMessages()){
 		ofxOscMessage m_receive;
 		Osc_AcsMotion.OscReceive.getNextMessage(&m_receive);
@@ -195,6 +196,7 @@ void ofApp::ChangeCgId_OscFrom_AcsMotion()
 			Cg->ChangeId(MotionId);
 		}
 	}
+*/
 }
 
 /******************************
@@ -352,7 +354,7 @@ void ofApp::update(){
 	
 	get_UdpMessage_From_Dj();
 	
-	ChangeCgId_OscFrom_AcsMotion();
+	// ChangeCgId_OscFrom_AcsMotion();
 	
 	/********************
 	********************/
@@ -380,7 +382,7 @@ void ofApp::update(){
 	Text->update();
 	Strobe->update();
 	
-	Cg->update();
+	// Cg->update();
 }
 
 /******************************
@@ -428,9 +430,42 @@ void ofApp::RandomSet_VideoMix()
 ******************************/
 void ofApp::ColorChange(COLORPATTERNS id)
 {
+	/********************
+	********************/
+	printMessage("Color Change");
+	switch(id){
+		case COLPATTERN_AQUA:
+			printf("AQUA\n");
+			break;
+		case COLPATTERN_MAGMA:
+			printf("MAGMA");
+			break;
+		case COLPATTERN_DIGITAL:
+			printf("DIGITAL");
+			break;
+		case COLPATTERN_SEXY:
+			printf("SEXY");
+			break;
+		case COLPATTERN_TRIP:
+			printf("TRIP");
+			break;
+		case COLPATTERN_REGGAE:
+			printf("REGGAE");
+			break;
+		case COLPATTERN_SAMBA:
+			printf("SAMBA");
+			break;
+		case COLPATTERN_SWEETS:
+			printf("SWEETS");
+			break;
+	}
+
+	
+	/********************
+	********************/
 	particle->set_color( id );
 	Indicator->set_color( id );
-	Cg->set_color( id );
+	// Cg->set_color( id );
 }
 
 /******************************
@@ -521,7 +556,7 @@ void ofApp::draw(){
 	
 	Strobe->draw(DataSet_Alpha.a_Strobe);
 	
-	Cg->draw(gui__a_Cg); // not received from Dj now(will be implemented).
+	// Cg->draw(gui__a_Cg); // not received from Dj now(will be implemented).
 	
 	/********************
 	********************/
@@ -741,7 +776,7 @@ void ofApp::keyPressed(int key){
 		InputState = INPUT_NORMAL;
 		
 	}else if(InputState == INPUT_3DCG){
-		Cg->keyPressed(key);
+		// Cg->keyPressed(key);
 		InputState = INPUT_NORMAL;
 		
 	}
