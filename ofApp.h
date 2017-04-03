@@ -225,7 +225,7 @@ private:
 	INDICATOR* Indicator;
 	TEXT* Text;
 	STROBE* Strobe;
-	CG* Cg;
+	// CG* Cg;
 	
 	ofImage img_jacket;
 	

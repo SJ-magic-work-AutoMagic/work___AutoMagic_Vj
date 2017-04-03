@@ -1,0 +1,81 @@
+/************************************************************
+************************************************************/
+■現象・問題
+HDMI outにより、note PC画面とProjector画面の2面を出力すると、vj動画がカクカクしてしまう.
+
+
+■環境・条件
+Mac book Pro --HDMI-- Projector
+
+
+■keyword
+AppNap
+HDMI/ VGA
+マルチディスプレイ
+
+
+/************************************************************
+conclusion : 全体
+************************************************************/
+Vj output(マルチディスプレイ)をVGAとする
+
+
+/************************************************************
+study
+************************************************************/
+■study : AppNap:OS全体, 個別appで設定
+try
+	AppNapp.
+	
+purpose
+
+result
+	少し改善したが根本的な改善ではなかった.
+	OS全体と個別Appでは、特に差がなかった.
+		
+conclusion
+	根本解決はなかったが、一応、OS全体でAppNap offとすることにした
+
+	
+■study : TCPSyphon, UDPSyphon try
+try
+	http://techlife.sg/TCPSyphon/index_jp.html
+	http://techlife.sg/UDPSyphon/
+	
+	Macを2台用意し、TCPSyphon, UDPSyphon を使用して画像をpass.
+	2台目のMacからMadMapperを使ってProjection.
+	
+	
+purpose
+
+
+result
+	TCPSyphon, UDPSyphonによる転送はできた.
+	but...そもそもこれらのappも重い.
+	and...転送により、2台目のMac上でdelayが見える気がした.
+	
+	しかし、もっと根本的な問題として、2台目のMacからもHDMI出力するとカクカクが発生した.
+	
+conclusion
+	
+
+■study : doubt HDMI
+try
+	projector outputをVGAに変更
+	
+purpose
+	
+
+result
+	30fpsを割ることが(ほとんど)なくなった.
+
+conclusion
+	HDMI outputはGraphic Board(GPU)を使用してしまう。
+	このため、HDMIによるマルチディスプレイ出力はGPU powerを食ってしまう.
+	
+	Vj outputは、VGAとすることで対応.
+
+
+	
+
+
