@@ -513,8 +513,10 @@ void MOV_EFFECT::draw_Particle(ofFbo* fbo_src, ofFbo* fbo_dst)
 				
 				float brightness = (r + g + b) / 3.0f;
 				
-				// Verts[y * PARTICLE_WIDTH + x] = ofVec3f(x - PARTICLE_WIDTH/2, y - PARTICLE_HEIGHT/2, brightness * 255 - 128);
-				Verts[y * PARTICLE_WIDTH + x] = ofVec3f(x - PARTICLE_WIDTH/2, y - PARTICLE_HEIGHT/2, brightness * 90 - 45);
+				// Verts[y * PARTICLE_WIDTH + x] = ofVec3f(x - PARTICLE_WIDTH/2, y - PARTICLE_HEIGHT/2, brightness * 90 - 45); // Particle:small
+				Verts[y * PARTICLE_WIDTH + x] = ofVec3f(x - PARTICLE_WIDTH/2, y - PARTICLE_HEIGHT/2, brightness * 160 - 80); // Particle:middle
+				// Verts[y * PARTICLE_WIDTH + x] = ofVec3f(x - PARTICLE_WIDTH/2, y - PARTICLE_HEIGHT/2, brightness * 255 - 128); // Particle:large
+				
 				Color[y * PARTICLE_WIDTH + x] = ofFloatColor(r, g, b, 0.8);
 			}
 		}
@@ -529,7 +531,10 @@ void MOV_EFFECT::draw_Particle(ofFbo* fbo_src, ofFbo* fbo_dst)
 		cam.begin();
 		ofPushMatrix();
 		ofScale(1, -1, 1);
-		glPointSize(2.5);
+		
+		// glPointSize(2.5); // Particle:small
+		glPointSize(2.0); // Particle:middle
+		
 		Vbo.draw(GL_POINTS, 0, NUM_PARTICLES);
 		ofPopMatrix();
 		cam.end();
@@ -610,7 +615,10 @@ void MOV_EFFECT::cam_orbit_motion()
 			float longitude = 15 * time; // rotation speed
 			// float latitude = ofGetWidth() * 0.013 * sin(time*0.8); // y方向に軽く揺らす.
 			float latitude = 15 * sin(time*0.8); // y方向に軽く揺らす.
-			float radius = ofGetWidth() * 0.08 + ofGetWidth() * 0.008 * sin(time*0.4);
+			
+			// float radius = ofGetWidth() * 0.08 + ofGetWidth() * 0.008 * sin(time*0.4); // Particle:small
+			float radius = ofGetWidth() * 0.2 + ofGetWidth() * 0.02 * sin(time*0.4); // Particle:middle
+			
 			cam.orbit( longitude, latitude, radius, ofPoint(0,0,0) );
 		}
 		

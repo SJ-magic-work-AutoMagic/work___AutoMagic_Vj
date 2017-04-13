@@ -106,10 +106,18 @@ private:
 	/********************
 	********************/
 	enum{
+/*
+		// Particle:small
 		PARTICLE_WIDTH	= 160,
 		PARTICLE_HEIGHT	= 90,
+*/		
+
+		// Particle:middle
+		PARTICLE_WIDTH	= 320,
+		PARTICLE_HEIGHT	= 180,
 		
 /*
+		// Particle:Large
 		PARTICLE_WIDTH	= 640,
 		PARTICLE_HEIGHT	= 360,
 */
