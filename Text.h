@@ -16,6 +16,7 @@ private:
 	struct DRAW_INFO{
 		int FontSize_id;
 		ofVec2f pos;
+		ofVec2f speed;
 	};
 	
 	/****************************************
@@ -36,8 +37,6 @@ private:
 	int id;
 	vector<ofTrueTypeFont> font;
 	
-	bool b_Refresh;
-	
 	vector<DRAW_INFO> DrawInfo;
 	
 	
@@ -51,6 +50,10 @@ private:
 	~TEXT();
 	TEXT(const TEXT&); // Copy constructor. no define.
 	TEXT& operator=(const TEXT&); // コピー代入演算子. no define.
+	
+	/********************
+	********************/
+	void Refresh_DrawInfo();
 	
 public:
 	/****************************************

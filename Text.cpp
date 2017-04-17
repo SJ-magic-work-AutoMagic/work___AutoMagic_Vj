@@ -63,7 +63,8 @@ const int NUM_CONTENTS = sizeof(Contents) / sizeof(Contents[0]);
 /******************************
 ******************************/
 TEXT::TEXT()
-: RefreshTime_sec(0.060)
+// : RefreshTime_sec(0.060)
+: RefreshTime_sec(0.500)
 , id(0)
 {
 }
@@ -83,8 +84,9 @@ void TEXT::setup()
 		// font[i].loadFont("RictyDiminished-Regular.ttf", FontSize[i]);
 		font[i].loadFont("FTY DELIRIUM NCV.ttf", FontSize[i]);
 		// font[i].loadFont("Glamor-Bold.ttf", FontSize[i]);
-		
 	}
+	
+	Refresh_DrawInfo();
 }
 
 /******************************
@@ -104,18 +106,46 @@ void TEXT::update()
 	float now = ofGetElapsedTimef();
 	
 	if(RefreshTime_sec < now - t_LastRefresh){
-		b_Refresh = true;
+		Refresh_DrawInfo();
+		
 		t_LastRefresh = now;
-	}else{
-		b_Refresh = false;
 	}
 	
+	/********************
+	********************/
+	static float t_LastINT = 0;
+	float dt = ofClamp(now - t_LastINT, 0, 0.1);
+	
+	for(int i = 0; i < DrawInfo.size(); i++){
+		DrawInfo[i].pos.x += DrawInfo[i].speed.x * dt;
+		DrawInfo[i].pos.y += DrawInfo[i].speed.y * dt;
+	}
+	
+	t_LastINT = now;
+}
+
+/******************************
+******************************/
+void TEXT::Refresh_DrawInfo()
+{
+	int DispInTime = int(ofRandom(MIN_DISP_IN_TIME, MAX_DISP_IN_TIME));
+	DrawInfo.resize(DispInTime);
+	
+	for(int i = 0; i < DrawInfo.size(); i++){
+		DrawInfo[i].FontSize_id = rand() % NUM_FONT_SIZE;
+		DrawInfo[i].pos.set( ofVec2f(rand() % ofGetWidth(), rand() % ofGetHeight()) );
+		
+		float MaxSpeed = 20;
+		DrawInfo[i].speed.set( ofRandom(-MaxSpeed, MaxSpeed), ofRandom(-MaxSpeed, MaxSpeed) );
+	}
 }
 
 /******************************
 ******************************/
 void TEXT::draw()
 {
+	float now = ofGetElapsedTimef();
+
 	ofPushStyle();
 	
 	/********************
@@ -130,16 +160,6 @@ void TEXT::draw()
 	
 	/********************
 	********************/
-	if(b_Refresh){
-		int DispInTime = int(ofRandom(MIN_DISP_IN_TIME, MAX_DISP_IN_TIME));
-		DrawInfo.resize(DispInTime);
-		
-		for(int i = 0; i < DrawInfo.size(); i++){
-			DrawInfo[i].FontSize_id = rand() % NUM_FONT_SIZE;
-			DrawInfo[i].pos.set( ofVec2f(rand() % ofGetWidth(), rand() % ofGetHeight()) );
-		}
-	}
-	
 	ofSetColor(255, 255, 255, 170);
 	for(int i = 0; i < DrawInfo.size(); i++){
 		float offset = font[DrawInfo[i].FontSize_id].stringWidth(Contents[id]) / 2;
