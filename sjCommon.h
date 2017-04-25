@@ -16,7 +16,7 @@ description
 /********************
 ********************/
 // #define SJ_DEBUG
-// #define SJ_REC
+#define SJ_REC
 
 /********************
 MacのSSD modelの場合、video serverを2つ立てずともloadingが速いので問題なし.
