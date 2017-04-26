@@ -23,12 +23,9 @@ ofApp::ofApp(int _BootMode)
 , Indicator(INDICATOR::getInstance())
 , Text(TEXT::getInstance())
 , Strobe(STROBE::getInstance())
-// , Cg(CG::getInstance())
 , b_UseLiveVideo(false)
-
-#ifdef SJ_REC
-, t_1st_OscMessage_ColorTheme(-1)
-#endif
+, t_1st_SoundOn(-1)
+, b_ChangeVideoServer(false)
 {
 	BootMode = BOOT_MODE(_BootMode);
 	
@@ -120,7 +117,6 @@ void ofApp::setup(){
 	Indicator->setup();
 	Text->setup();
 	Strobe->setup();
-	// Cg->setup();
 	
 	/********************
 	********************/
@@ -179,28 +175,6 @@ void ofApp::Res_OscFrom_VideoServer()
 
 /******************************
 ******************************/
-void ofApp::ChangeCgId_OscFrom_AcsMotion()
-{
-/*
-	while(Osc_AcsMotion.OscReceive.hasWaitingMessages()){
-		ofxOscMessage m_receive;
-		Osc_AcsMotion.OscReceive.getNextMessage(&m_receive);
-		
-		if(m_receive.getAddress() == "/Motion"){
-			int MotionId = m_receive.getArgAsInt32(0);
-			
-			int temp_i		= m_receive.getArgAsInt32(1);
-			float temp_f	= m_receive.getArgAsFloat(2);
-			temp_f			= m_receive.getArgAsFloat(3);
-			
-			Cg->ChangeId(MotionId);
-		}
-	}
-*/
-}
-
-/******************************
-******************************/
 void ofApp::Res_OscFrom_Dj()
 {
 	while( (BootMode == MODE_DEMO) && OscDj.OscReceive.hasWaitingMessages() ){
@@ -240,12 +214,6 @@ void ofApp::Res_OscFrom_Dj()
 			
 			ColorChange(COLORPATTERNS(ColorThemeID));
 			
-#ifdef SJ_REC
-		if(t_1st_OscMessage_ColorTheme == -1){
-			t_1st_OscMessage_ColorTheme = ofGetElapsedTimef();
-		}
-#endif
-			
 		}else if(m_receive.getAddress() == "/VJ_BpmInfo"){
 			int BeatInterval_ms = m_receive.getArgAsInt32(0);
 			Text->set_RefreshRate(BeatInterval_ms);
@@ -267,7 +235,13 @@ void ofApp::get_UdpMessage_From_Dj()
 		
 		/********************
 		********************/
-		vector<string> alphas = ofSplitString(params[0], ",");
+		if( (t_1st_SoundOn == -1) && (atoi(params[0].c_str())) ){
+			t_1st_SoundOn = ofGetElapsedTimef();
+		}
+		
+		/********************
+		********************/
+		vector<string> alphas = ofSplitString(params[1], ",");
 		if( (BootMode == MODE_DEMO) && (alphas.size() == 10) ){
 			DataSet_Alpha.mov_a					= atof(alphas[0].c_str());
 			DataSet_Alpha.b_mov_Effect_On		= atoi(alphas[1].c_str());
@@ -285,7 +259,7 @@ void ofApp::get_UdpMessage_From_Dj()
 		
 		/********************
 		********************/
-		vector<string> fft = ofSplitString(params[1], ",");
+		vector<string> fft = ofSplitString(params[2], ",");
 		if(b_1stUdpMessage){
 			b_1stUdpMessage = false;
 			spectrum.resize(fft.size() - 1);
@@ -354,8 +328,6 @@ void ofApp::update(){
 	
 	get_UdpMessage_From_Dj();
 	
-	// ChangeCgId_OscFrom_AcsMotion();
-	
 	/********************
 	********************/
 	if(BootMode == MODE_TEST){
@@ -381,8 +353,6 @@ void ofApp::update(){
 	Indicator->update(spectrum);
 	Text->update();
 	Strobe->update();
-	
-	// Cg->update();
 }
 
 /******************************
@@ -465,7 +435,6 @@ void ofApp::ColorChange(COLORPATTERNS id)
 	********************/
 	particle->set_color( id );
 	Indicator->set_color( id );
-	// Cg->set_color( id );
 }
 
 /******************************
@@ -498,9 +467,15 @@ void ofApp::try_VideoContentsChange()
 ******************************/
 int ofApp::get_NextVideoServerId(int id)
 {
-	id++;
-	if(NUM_VIDEO_SERVES <= id){
-		id = 0;
+	if(b_ChangeVideoServer){
+		b_ChangeVideoServer = false;
+		
+		id++;
+		if(NUM_VIDEO_SERVES <= id){
+			id = 0;
+		}
+	}else{
+		/* nothing */
 	}
 	return id;
 }
@@ -556,8 +531,6 @@ void ofApp::draw(){
 	
 	Strobe->draw(DataSet_Alpha.a_Strobe);
 	
-	// Cg->draw(gui__a_Cg); // not received from Dj now(will be implemented).
-	
 	/********************
 	********************/
 	ofPushStyle();
@@ -585,13 +558,13 @@ void ofApp::draw(){
 	/********************
 	********************/
 #ifdef SJ_REC
-	if(0 <= t_1st_OscMessage_ColorTheme){
-		float dt = ofGetElapsedTimef() - t_1st_OscMessage_ColorTheme;
+	if(0 <= t_1st_SoundOn){
+		float dt = ofGetElapsedTimef() - t_1st_SoundOn;
 		if(dt < 5.0){
-			char TimeFrom_1stMessage[BUF_SIZE];
-			sprintf(TimeFrom_1stMessage, "%7.2f", dt);
+			char TimeFrom_1stSound[BUF_SIZE];
+			sprintf(TimeFrom_1stSound, "%7.2f", dt);
 			
-			ofDrawBitmapString(TimeFrom_1stMessage, 10, 20);
+			ofDrawBitmapString(TimeFrom_1stSound, 10, 20);
 		}
 	}
 #endif
@@ -656,8 +629,6 @@ void ofApp::keyPressed(int key){
 		INPUT_TEXT,
 		INPUT_STROBE,
 		INPUT_MOV_EFFECT,
-		
-		INPUT_3DCG,
 	};
 	static INPUT_STATE InputState = INPUT_NORMAL;
 	
@@ -677,6 +648,11 @@ void ofApp::keyPressed(int key){
 				ColorChange(COLORPATTERNS(key - '0') );
 				break;
 			
+			case 'b':
+				b_ChangeVideoServer = false;
+				printMessage("Cancel : Change Video Server");
+				break;
+				
 			case 'c':
 				b_test_ChangeContents = true;
 				break;
@@ -699,8 +675,8 @@ void ofApp::keyPressed(int key){
 				break;
 				
 			case 'g':
-				InputState = INPUT_3DCG;
-				printMessage("key for 3D CG");
+				b_ChangeVideoServer = true;
+				printMessage("Change Video Server @ Next chance");
 				break;
 				
 			case 'i':
@@ -773,10 +749,6 @@ void ofApp::keyPressed(int key){
 	}else if(InputState == INPUT_MOV_EFFECT){
 		mov0_Effect.keyPressed(key);
 		mov_Effect.keyPressed(key);
-		InputState = INPUT_NORMAL;
-		
-	}else if(InputState == INPUT_3DCG){
-		// Cg->keyPressed(key);
 		InputState = INPUT_NORMAL;
 		
 	}
