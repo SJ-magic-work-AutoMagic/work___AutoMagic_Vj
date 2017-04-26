@@ -16,7 +16,6 @@
 #include "Indicator.h"
 #include "Text.h"
 #include "Strobe.h"
-#include "CG.h"
 
 /************************************************************
 ************************************************************/
@@ -169,11 +168,7 @@ private:
 		HEIGHT_SMALL = 540,
 	};
 	enum{
-#ifdef ONE_VIDEO_SERVER
-		NUM_VIDEO_SERVES = 1,
-#else
 		NUM_VIDEO_SERVES = 2,
-#endif
 
 		NUM_VIDEOS_PER_SERVER = 3,
 	};
@@ -184,6 +179,9 @@ private:
 	
 	/****************************************
 	****************************************/
+	/********************
+	********************/
+	bool b_ChangeVideoServer;
 
 	/********************
 	********************/
@@ -225,7 +223,6 @@ private:
 	INDICATOR* Indicator;
 	TEXT* Text;
 	STROBE* Strobe;
-	// CG* Cg;
 	
 	ofImage img_jacket;
 	
@@ -279,7 +276,6 @@ private:
 	void ColorChange(COLORPATTERNS id);
 	
 	void Res_OscFrom_VideoServer();
-	void ChangeCgId_OscFrom_AcsMotion();
 	void Res_OscFrom_Dj();
 	void get_UdpMessage_From_Dj();
 	void overWrite_Dataset_getFromDjUdp_with_gui();
